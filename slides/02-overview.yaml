@@ -52,6 +52,7 @@ elements:
     h: 3.9
     fontSize: 14
     color: text
+    valign: top
 
   - type: shape
     shape: roundRect
@@ -83,6 +84,7 @@ elements:
     h: 3.9
     fontSize: 14
     color: text
+    valign: top
 
   - type: shape
     shape: roundRect
@@ -114,3 +116,4 @@ elements:
     h: 3.9
     fontSize: 14
     color: text
+    valign: top
