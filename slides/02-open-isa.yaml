@@ -9,7 +9,7 @@ elements:
     shape: roundRect
     x: 0.4
     y: 0.9
-    w: 5.7
+    w: 5.55
     h: 1.35
     fill: card
     line:
@@ -26,7 +26,7 @@ elements:
     shape: roundRect
     x: 0.4
     y: 2.38
-    w: 5.7
+    w: 5.55
     h: 1.35
     fill: card
     line:
@@ -43,7 +43,7 @@ elements:
     shape: roundRect
     x: 0.4
     y: 3.86
-    w: 5.7
+    w: 5.55
     h: 1.35
     fill: card
     line:
@@ -60,7 +60,7 @@ elements:
     shape: roundRect
     x: 0.4
     y: 5.34
-    w: 5.7
+    w: 5.55
     h: 1.35
     fill: card
     line:
@@ -73,11 +73,181 @@ elements:
     align: left
     valign: middle
 
-  - type: image
-    src: assets/riscv-vs-arm-license-model.png
-    x: 6.25
-    y: 0.9
-    w: 6.7
-    h: 5.8
-    sizing: contain
-    altText: RISC-V と Arm のライセンスモデル比較
+  - type: text
+    text: ライセンスモデル
+    x: 6.15
+    y: 0.86
+    w: 6.75
+    h: 0.36
+    fontSize: 16
+    bold: true
+    color: navy
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 6.15
+    y: 1.24
+    w: 3.28
+    h: 0.48
+    fill: accent
+    rectRadius: 0.08
+    text: RISC-V
+    fontSize: 16
+    bold: true
+    color: "FFFFFF"
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 9.55
+    y: 1.24
+    w: 3.35
+    h: 0.48
+    fill: "C4473A"
+    rectRadius: 0.08
+    text: Arm
+    fontSize: 16
+    bold: true
+    color: "FFFFFF"
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 6.15
+    y: 1.82
+    w: 3.28
+    h: 1.18
+    fill: header
+    line:
+      color: accent
+      width: 1
+    rectRadius: 0.08
+    text: "ISA\n誰でも無償"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 9.55
+    y: 1.82
+    w: 3.35
+    h: 1.18
+    fill: "FDECEA"
+    line:
+      color: "C4473A"
+      width: 1
+    rectRadius: 0.08
+    text: "ISA\n契約が必要"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 6.15
+    y: 3.1
+    w: 3.28
+    h: 1.18
+    fill: header
+    line:
+      color: accent
+      width: 1
+    rectRadius: 0.08
+    text: "コア\nIP / OSS / 自社"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 9.55
+    y: 3.1
+    w: 3.35
+    h: 1.18
+    fill: "FDECEA"
+    line:
+      color: "C4473A"
+      width: 1
+    rectRadius: 0.08
+    text: "コア\nArm IP をライセンス"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 6.15
+    y: 4.38
+    w: 3.28
+    h: 1.18
+    fill: header
+    line:
+      color: accent
+      width: 1
+    rectRadius: 0.08
+    text: "カスタム命令\nエンコーディング領域あり"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 9.55
+    y: 4.38
+    w: 3.35
+    h: 1.18
+    fill: "FDECEA"
+    line:
+      color: "C4473A"
+      width: 1
+    rectRadius: 0.08
+    text: "カスタム命令\n原則 Arm の範囲"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 6.15
+    y: 5.66
+    w: 3.28
+    h: 1.18
+    fill: header
+    line:
+      color: accent
+      width: 1
+    rectRadius: 0.08
+    text: "費用\n実装・検証・製造"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 9.55
+    y: 5.66
+    w: 3.35
+    h: 1.18
+    fill: "FDECEA"
+    line:
+      color: "C4473A"
+      width: 1
+    rectRadius: 0.08
+    text: "費用\nライセンス＋ロイヤリティ"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle

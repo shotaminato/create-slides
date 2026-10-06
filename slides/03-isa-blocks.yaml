@@ -8,9 +8,9 @@ elements:
   - type: shape
     shape: roundRect
     x: 0.4
-    y: 0.88
+    y: 0.86
     w: 4.05
-    h: 1.45
+    h: 1.05
     fill: card
     line:
       color: line
@@ -25,9 +25,9 @@ elements:
   - type: shape
     shape: roundRect
     x: 4.6
-    y: 0.88
+    y: 0.86
     w: 4.05
-    h: 1.45
+    h: 1.05
     fill: card
     line:
       color: line
@@ -42,9 +42,9 @@ elements:
   - type: shape
     shape: roundRect
     x: 8.8
-    y: 0.88
+    y: 0.86
     w: 4.1
-    h: 1.45
+    h: 1.05
     fill: card
     line:
       color: line
@@ -56,11 +56,307 @@ elements:
     align: center
     valign: middle
 
-  - type: image
-    src: assets/riscv-isa-building-blocks.png
-    x: 1.4
-    y: 2.45
-    w: 10.5
-    h: 4.4
-    sizing: contain
-    altText: RISC-V ISA の構成。基本命令セット、標準拡張、プロファイル
+  - type: text
+    text: 下から積み上げるモジュール方式
+    x: 0.45
+    y: 1.96
+    w: 12.4
+    h: 0.32
+    fontSize: 16
+    color: muted
+    align: center
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 2.32
+    w: 12.5
+    h: 1.12
+    fill: "F3EEFF"
+    line:
+      color: accent4
+      width: 1.1
+    rectRadius: 0.1
+    text: "プロファイル（必須セット）"
+    fontSize: 16
+    bold: true
+    color: navy
+    align: left
+    valign: top
+    margin: 10
+
+  - type: shape
+    shape: roundRect
+    x: 3.35
+    y: 2.72
+    w: 2.85
+    h: 0.55
+    fill: card
+    line:
+      color: accent4
+      width: 1
+    rectRadius: 0.08
+    text: RVA23（V・H 必須）
+    fontSize: 15
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 6.35
+    y: 2.72
+    w: 2.85
+    h: 0.55
+    fill: card
+    line:
+      color: accent4
+      width: 1
+    rectRadius: 0.08
+    text: RVB23（組込み）
+    fontSize: 15
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 9.35
+    y: 2.72
+    w: 3.2
+    h: 0.55
+    fill: card
+    line:
+      color: accent4
+      width: 1
+    rectRadius: 0.08
+    text: RVM（マイコン）
+    fontSize: 15
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 3.54
+    w: 12.5
+    h: 0.78
+    fill: "FFF4E5"
+    line:
+      color: accent3
+      width: 1.1
+    rectRadius: 0.1
+    text: "カスタム拡張　ベンダー独自命令（移植性は下がる）"
+    fontSize: 16
+    bold: true
+    color: navy
+    align: left
+    valign: middle
+    margin: 12
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 4.42
+    w: 12.5
+    h: 1.18
+    fill: header
+    line:
+      color: accent
+      width: 1.1
+    rectRadius: 0.1
+    text: "標準拡張"
+    fontSize: 16
+    bold: true
+    color: navy
+    align: left
+    valign: top
+    margin: 10
+
+  - type: shape
+    shape: roundRect
+    x: 2.35
+    y: 4.82
+    w: 1.35
+    h: 0.58
+    fill: card
+    line:
+      color: accent
+      width: 1
+    rectRadius: 0.08
+    text: M 乗除
+    fontSize: 15
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 3.8
+    y: 4.82
+    w: 1.35
+    h: 0.58
+    fill: card
+    line:
+      color: accent
+      width: 1
+    rectRadius: 0.08
+    text: A 原子
+    fontSize: 15
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 5.25
+    y: 4.82
+    w: 1.45
+    h: 0.58
+    fill: card
+    line:
+      color: accent
+      width: 1
+    rectRadius: 0.08
+    text: F / D 浮動
+    fontSize: 15
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 6.8
+    y: 4.82
+    w: 1.35
+    h: 0.58
+    fill: card
+    line:
+      color: accent
+      width: 1
+    rectRadius: 0.08
+    text: C 圧縮
+    fontSize: 15
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 8.25
+    y: 4.82
+    w: 1.55
+    h: 0.58
+    fill: card
+    line:
+      color: accent
+      width: 1
+    rectRadius: 0.08
+    text: V ベクトル
+    fontSize: 15
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 9.9
+    y: 4.82
+    w: 2.65
+    h: 0.58
+    fill: card
+    line:
+      color: accent
+      width: 1
+    rectRadius: 0.08
+    text: H ハイパーバイザ
+    fontSize: 15
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 5.7
+    w: 12.5
+    h: 1.12
+    fill: "E7F6EE"
+    line:
+      color: accent2
+      width: 1.1
+    rectRadius: 0.1
+    text: "基本命令セット（どれか1つ）"
+    fontSize: 16
+    bold: true
+    color: navy
+    align: left
+    valign: top
+    margin: 10
+
+  - type: shape
+    shape: roundRect
+    x: 4.15
+    y: 6.1
+    w: 2.5
+    h: 0.55
+    fill: card
+    line:
+      color: accent2
+      width: 1
+    rectRadius: 0.08
+    text: RV32I
+    fontSize: 16
+    bold: true
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 6.8
+    y: 6.1
+    w: 2.5
+    h: 0.55
+    fill: card
+    line:
+      color: accent2
+      width: 1
+    rectRadius: 0.08
+    text: RV64I
+    fontSize: 16
+    bold: true
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 9.45
+    y: 6.1
+    w: 3.1
+    h: 0.55
+    fill: card
+    line:
+      color: accent2
+      width: 1
+    rectRadius: 0.08
+    text: RV32E / RV64E
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+    wrap: false

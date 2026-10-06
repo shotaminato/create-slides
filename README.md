@@ -67,7 +67,8 @@ create-slides/
     07-market-ip.yaml
     08-conclusion.yaml
   assets/
-    logo.png
+    logo.png                 # type: image の動作確認用。サンプルスライドでは未使用
+    # 以下は未使用（図版は YAML の shape / text / line で描画）
     riscv-vs-arm-license-model.png
     riscv-isa-building-blocks.png
     riscv-timeline-2010-2026.png
@@ -308,17 +309,17 @@ Title text stays in slide YAML and is not fixed on the master.
 
 ## サンプル / Sample
 
-同梱のサンプルは、RISC-V の入門と SHD Group 2026 市場予測を出典付きでまとめた **8 枚**の日本語デッキです。表紙・本文・まとめはスロットで見出しを差し、図版 PNG を `assets/` から埋めます。
+同梱のサンプルは、RISC-V の入門と SHD Group 2026 市場予測を出典付きでまとめた **8 枚**の日本語デッキです。表紙・見出しはスロット、比較図・年表・棒／折れ線チャートは **YAML の図形・テキスト・線**で描きます（図版 PNG は埋め込みません）。
 
 | スライド | テンプレート | 内容 |
 | --- | --- | --- |
 | `01-title.yaml` | `title` | 表紙。スロット `title` / `subtitle`。フッターは調査日 2026-10-06 |
-| `02-open-isa.yaml` | `content` | オープンな ISA。ライセンス比較図 |
-| `03-isa-blocks.yaml` | `content` | 基本 ISA＋拡張＋プロファイル |
-| `04-timeline.yaml` | `content` | 2010→2026 マイルストーン |
+| `02-open-isa.yaml` | `content` | オープンな ISA。RISC-V / Arm 比較は shape |
+| `03-isa-blocks.yaml` | `content` | 基本 ISA＋拡張＋プロファイル（積み上げ） |
+| `04-timeline.yaml` | `content` | 2010→2026 マイルストーン（線＋ノード） |
 | `05-rva23-year.yaml` | `content` | 2026年＝RVA23 ハードウェア元年（チャートなし） |
-| `06-market-soc.yaml` | `content` | SoC 出荷数・売上（SHD Tables 13–14） |
-| `07-market-ip.yaml` | `content` | CPU IP 売上 2024 $205M → 2031 $1.91B、CAGR 39.7% |
+| `06-market-soc.yaml` | `content` | SoC 出荷数・売上の棒＋普及率の折れ線（SHD Tables 13–14） |
+| `07-market-ip.yaml` | `content` | CPU IP 売上の棒＋折れ線。2024 $205M → 2031 $1.91B |
 | `08-conclusion.yaml` | `conclusion` | 1 行まとめ（`wrap: false`）。「結言」ラベルなし |
 
 生成:
@@ -330,7 +331,7 @@ npm run build-slides -- --slides slides --template templates/default.yaml --out 
 
 成功すると `dist/deck.pptx` ができます（`dist/` は `.gitignore` 対象です）。同じコマンドで生成したサンプルを `examples/sample-deck.pptx` に同梱しています。
 
-見出しの位置とサイズはテンプレートのスロット側です。本文カードは 18pt、出典フッターは 16pt、ページ番号は 18pt。1 行に収めたいテキストは `wrap: false` を付けます。
+見出しの位置とサイズはテンプレートのスロット側です。本文カードは 18pt、出典は 15–16pt、ページ番号は 18pt。比較・年表・チャートも `type: shape` / `type: text` です。`type: image` は CLI として使えますが、このサンプルデッキでは使いません。1 行に収めたいテキストは `wrap: false` を付けます。
 
 ## 開発 / Development
 
