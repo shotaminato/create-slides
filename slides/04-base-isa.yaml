@@ -1,5 +1,5 @@
 template: content
-notes: RV32I / RV64I が主。x0 はゼロ。整数レジスタは 32 本（RV32E は 16 本）。
+notes: RV32I / RV64I が主。x0 はゼロ。整数レジスタは 32 本（RV32E は 16 本）。半透明シェイプの例あり。
 
 elements:
   - type: text
@@ -107,6 +107,23 @@ elements:
       width: 1.1
     text: "x1 … x31   整数汎用レジスタ（32 ビットまたは 64 ビット）"
     fontSize: 16
+    bold: true
+    color: text
+
+  - type: shape
+    shape: ellipse
+    x: 10.15
+    y: 2.85
+    w: 2.6
+    h: 2.55
+    fill:
+      color: accent3
+      opacity: 0.4
+    line:
+      color: "#C97800AA"
+      width: 1.6
+    text: "半透明\nF/D の fp"
+    fontSize: 13
     bold: true
     color: text
 

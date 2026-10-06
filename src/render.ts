@@ -2,6 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   resolveColor,
+  resolveFillPaint,
+  resolvePaint,
+  lineTransparency,
   SlideConfigError,
   type FillConfig,
   type ImageElement,
@@ -29,13 +32,7 @@ function toFill(
   palette: Palette,
 ): { color: string; transparency?: number } | undefined {
   if (fill === undefined) return undefined;
-  if (typeof fill === "string") {
-    const color = resolveColor(fill, palette);
-    return color ? { color } : undefined;
-  }
-  const color = resolveColor(fill.color, palette);
-  if (!color) return undefined;
-  return { color, transparency: fill.transparency };
+  return resolveFillPaint(fill, palette);
 }
 
 function toLine(
@@ -48,16 +45,29 @@ function toLine(
 ): LineProps | undefined {
   const fromConfig: LineProps = {};
   if (typeof line === "string") {
-    const color = resolveColor(line, palette);
-    if (color) fromConfig.color = color;
+    const paint = resolvePaint(line, palette);
+    if (paint) {
+      fromConfig.color = paint.color;
+      if (paint.transparency !== undefined) fromConfig.transparency = paint.transparency;
+    }
   } else if (line) {
-    const color = resolveColor(line.color, palette);
-    if (color) fromConfig.color = color;
+    if (line.color) {
+      const paint = resolveFillPaint(
+        { color: line.color, opacity: line.opacity, transparency: line.transparency },
+        palette,
+      );
+      if (paint) {
+        fromConfig.color = paint.color;
+        if (paint.transparency !== undefined) fromConfig.transparency = paint.transparency;
+      }
+    } else {
+      const t = lineTransparency(line);
+      if (t !== undefined) fromConfig.transparency = t;
+    }
     if (line.width !== undefined) fromConfig.width = line.width;
     if (line.dashType) fromConfig.dashType = line.dashType;
     if (line.beginArrowType) fromConfig.beginArrowType = line.beginArrowType;
     if (line.endArrowType) fromConfig.endArrowType = line.endArrowType;
-    if (line.transparency !== undefined) fromConfig.transparency = line.transparency;
   }
 
   const merged: LineProps = {

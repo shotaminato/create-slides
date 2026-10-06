@@ -137,7 +137,7 @@ elements:
 | `align` | `left` / `center` / `right` / `justify` |
 | `valign` | `top` / `middle` / `bottom` |
 | `bold` / `italic` / `underline` | boolean |
-| `fill` | テキストボックス背景 |
+| `fill` | テキストボックス背景（図形と同じ透明度の指定が可能） |
 | `margin` | 余白 |
 | `lang` | 未指定時はテンプレートの `lang` |
 
@@ -156,14 +156,39 @@ elements:
 | --- | --- |
 | `shape` | 下表のフレンドリー名、または pptxgenjs の `ShapeType` 名 |
 | `x,y,w,h` | 位置とサイズ |
-| `fill` | 色文字列、または `{ color, transparency }` |
-| `line` | 色文字列、または `{ color, width, dashType, beginArrowType, endArrowType }` |
+| `fill` | 色文字列（`#RRGGBB` / `#RRGGBBAA`）、または `{ color, opacity?, transparency? }` |
+| `line` | 色文字列、または `{ color, width, dashType, beginArrowType, endArrowType, opacity?, transparency? }` |
 | `text` | 図形内テキスト（pptxgenjs の `addText` + `shape`） |
 | `rectRadius` | `roundRect` の丸み（0–1） |
 | `rotate` / `flipH` / `flipV` | 任意 |
 | テキスト系 | `fontSize`, `color`, `align`, `valign`, `bold`, `lang` など |
 
 `line.beginArrowType` / `endArrowType` は `none` / `arrow` / `diamond` / `oval` / `stealth` / `triangle` です。
+
+### 透明度 / Transparency
+
+図形の `fill` と `line`（テキストボックスの `fill` も同じ）で透明度を指定できます。省略時は不透明です。`opacity` と `transparency` は同時に指定できません。
+
+| 書き方 | 意味 |
+| --- | --- |
+| `opacity: 0.4` | 不透明度 0–1（1 = 不透明、0 = 透明） |
+| `transparency: 60` | pptxgenjs のパーセント（0 = 不透明、100 = 透明） |
+| `#0B6BCB80` | 8 桁 HEX。末尾 2 桁がアルファ（`00`–`FF`） |
+
+```yaml
+- type: shape
+  shape: ellipse
+  x: 1
+  y: 1
+  w: 2
+  h: 2
+  fill:
+    color: accent
+    opacity: 0.4
+  line:
+    color: "#0B6BCBAA"
+    width: 1.5
+```
 
 ## シェイプ一覧 / Shapes
 

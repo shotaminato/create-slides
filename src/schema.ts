@@ -17,11 +17,33 @@ const coord = z.union(
 );
 
 const hexOrName = z.string().min(1);
+const opacityUnit = z.number().min(0).max(1);
+const transparencyPercent = z.number().min(0).max(100);
 
-const fillObject = z.object({
-  color: hexOrName,
-  transparency: z.number().min(0).max(100).optional(),
-});
+const opacityXorTransparency = {
+  opacity: opacityUnit.optional(),
+  transparency: transparencyPercent.optional(),
+};
+
+function rejectOpacityAndTransparency(
+  val: { opacity?: number; transparency?: number },
+  ctx: z.RefinementCtx,
+): void {
+  if (val.opacity !== undefined && val.transparency !== undefined) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Use either opacity (0–1) or transparency (0–100), not both",
+      path: ["opacity"],
+    });
+  }
+}
+
+const fillObject = z
+  .object({
+    color: hexOrName,
+    ...opacityXorTransparency,
+  })
+  .superRefine(rejectOpacityAndTransparency);
 
 export const fillSchema = z.union([hexOrName, fillObject]);
 
@@ -38,14 +60,16 @@ const dashType = z.enum([
 
 const arrowHead = z.enum(["none", "arrow", "diamond", "oval", "stealth", "triangle"]);
 
-const lineObject = z.object({
-  color: hexOrName.optional(),
-  width: z.number().min(0).optional(),
-  dashType: dashType.optional(),
-  beginArrowType: arrowHead.optional(),
-  endArrowType: arrowHead.optional(),
-  transparency: z.number().min(0).max(100).optional(),
-});
+const lineObject = z
+  .object({
+    color: hexOrName.optional(),
+    width: z.number().min(0).optional(),
+    dashType: dashType.optional(),
+    beginArrowType: arrowHead.optional(),
+    endArrowType: arrowHead.optional(),
+    ...opacityXorTransparency,
+  })
+  .superRefine(rejectOpacityAndTransparency);
 
 export const lineSchema = z.union([hexOrName, lineObject]);
 
@@ -184,21 +208,115 @@ export function formatZodError(error: z.ZodError, file: string): string {
   return `Schema validation failed in ${file}:\n${lines.join("\n")}`;
 }
 
-/** Strip `#`, expand 3-digit hex, uppercase. Named palette keys are left as-is. */
-export function normalizeColorToken(value: string): string {
-  const trimmed = value.trim();
-  const hex = trimmed.startsWith("#") ? trimmed.slice(1) : trimmed;
+export interface ParsedPaint {
+  /** 6-digit RGB hex, no `#` */
+  color: string;
+  /** pptxgenjs transparency percent 0–100. Omitted when fully opaque. */
+  transparency?: number;
+}
+
+/** 0 = invisible, 1 = opaque → pptxgenjs transparency (0 = opaque, 100 = invisible). */
+export function opacityToTransparency(opacity: number): number | undefined {
+  const t = Math.round((1 - opacity) * 100);
+  if (t <= 0) return undefined;
+  return Math.min(100, t);
+}
+
+function alphaByteToTransparency(alpha: number): number | undefined {
+  return opacityToTransparency(alpha / 255);
+}
+
+/**
+ * Parse `#RGB`, `#RRGGBB`, `#RRGGBBAA` (and 4-digit `#RGBA`).
+ * Named tokens that are not hex are left to the caller.
+ */
+export function parseHexPaint(value: string): ParsedPaint | undefined {
+  const hex = value.trim().startsWith("#") ? value.trim().slice(1) : value.trim();
   if (/^[0-9a-fA-F]{3}$/.test(hex)) {
-    return hex
+    return {
+      color: hex
+        .split("")
+        .map((c) => c + c)
+        .join("")
+        .toUpperCase(),
+    };
+  }
+  if (/^[0-9a-fA-F]{4}$/.test(hex)) {
+    const rgb = hex
+      .slice(0, 3)
       .split("")
       .map((c) => c + c)
       .join("")
       .toUpperCase();
+    const alpha = parseInt(hex[3] + hex[3], 16);
+    return { color: rgb, transparency: alphaByteToTransparency(alpha) };
   }
   if (/^[0-9a-fA-F]{6}$/.test(hex)) {
-    return hex.toUpperCase();
+    return { color: hex.toUpperCase() };
   }
-  return trimmed;
+  if (/^[0-9a-fA-F]{8}$/.test(hex)) {
+    return {
+      color: hex.slice(0, 6).toUpperCase(),
+      transparency: alphaByteToTransparency(parseInt(hex.slice(6, 8), 16)),
+    };
+  }
+  return undefined;
+}
+
+export function resolvePaint(
+  value: string | undefined,
+  palette: Record<string, string>,
+): ParsedPaint | undefined {
+  if (!value) return undefined;
+  const token = value.trim();
+  const raw = token in palette ? palette[token] : token;
+  const parsed = parseHexPaint(raw);
+  if (parsed) return parsed;
+  const fallback = parseHexPaint(token);
+  return fallback;
+}
+
+function pickTransparency(
+  fromHex: number | undefined,
+  opacity: number | undefined,
+  transparency: number | undefined,
+): number | undefined {
+  if (transparency !== undefined) {
+    return transparency <= 0 ? undefined : transparency;
+  }
+  if (opacity !== undefined) {
+    return opacityToTransparency(opacity);
+  }
+  return fromHex;
+}
+
+export function resolveFillPaint(
+  fill: { color: string; opacity?: number; transparency?: number } | string,
+  palette: Record<string, string>,
+): ParsedPaint | undefined {
+  if (typeof fill === "string") {
+    return resolvePaint(fill, palette);
+  }
+  const parsed = resolvePaint(fill.color, palette);
+  if (!parsed) return undefined;
+  return {
+    color: parsed.color,
+    transparency: pickTransparency(parsed.transparency, fill.opacity, fill.transparency),
+  };
+}
+
+export function lineTransparency(
+  line: { opacity?: number; transparency?: number },
+  fromHex?: number,
+): number | undefined {
+  return pickTransparency(fromHex, line.opacity, line.transparency);
+}
+
+/** Strip `#`, expand 3-digit hex, uppercase. 8-digit hex drops alpha. Named keys are left as-is. */
+export function normalizeColorToken(value: string): string {
+  const parsed = parseHexPaint(value);
+  if (parsed) return parsed.color;
+  return value.trim();
 }
 
 export function resolveColor(
