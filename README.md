@@ -44,7 +44,7 @@ npx tsx src/cli.ts --slides slides --template templates/default.yaml --out dist/
 | `--out <file>` | `dist/deck.pptx` | 出力 `.pptx` |
 | `--root <dir>` | cwd（`package.json` を上方向に探索） | プロジェクトルート。画像パスの基準 |
 
-スライドの読み込み順は **ファイル名のソート順** です（`01-market.yaml`, …）。
+スライドの読み込み順は **ファイル名のソート順** です（`01-title.yaml`, …）。
 
 存在しないファイル、壊れた YAML、スキーマ違反、欠けている画像は、パス付きのエラーで終了します。
 
@@ -58,11 +58,23 @@ create-slides/
     content.yaml      # 本文
     conclusion.yaml   # まとめ / クロージング
   slides/
-    01-market.yaml
+    01-title.yaml
+    02-open-isa.yaml
+    03-isa-blocks.yaml
+    04-timeline.yaml
+    05-rva23-year.yaml
+    06-market-soc.yaml
+    07-market-ip.yaml
+    08-conclusion.yaml
   assets/
     logo.png
+    riscv-vs-arm-license-model.png
+    riscv-isa-building-blocks.png
+    riscv-timeline-2010-2026.png
     riscv-shd-soc-units-2022-2031.png
     riscv-shd-soc-revenue-2022-2031.png
+    riscv-shd-ip-revenue-2022-2031.png
+    riscv-slide-conclusion.png
   examples/
     sample-deck.pptx
   src/
@@ -98,34 +110,96 @@ create-slides/
 - `lang` — テキストの言語タグ（サンプルは `ja-JP`）
 - `colors` — 名前付きパレット。要素の `color` / `fill` から参照
 - `title` / `author` / `subject` — プレゼンテーションのメタデータ（スライド見出しではない）
-- `elements` — **スライドマスター**（pptxgenjs `defineSlideMaster`）に載せる共通クローム。ヘッダー／フッター帯、アクセント、静的なフッターラベルなど。各スライドへは複製しません
+- `elements` — 共通クローム **または** スロット。`id` のない要素（または `master: true` / `role: chrome`）は **スライドマスター**（pptxgenjs `defineSlideMaster`）へ。`id` 付きはスロットとして各スライドにマージする（後述）
 - `pageNumber` — フッター右の `current / total`。pptxgenjs の `slideNumber` は現在ページのフィールドだけなので、描画時に差し込みます。`text` の既定は `{{page}} / {{pages}}`（1 始まり）。別名: `{{currentPage}}` / `{{totalPages}}`。`align` の既定は `right`
 
-サンプルの title / content / conclusion / default は、マスターに背景とフッター帯を置き、フッター左に出典、右寄せで `1 / N` 形式のページ番号を描画します。**見出しテキストはマスターに焼き込みません**（各スライド YAML の `elements`）。
+サンプルの title / content / conclusion / default は、マスターに背景とフッター帯を置き、フッター左にラベル、右寄せで `1 / N` 形式のページ番号を描画します。**見出しテキストはマスターに焼き込みません**（スロット＋各スライド YAML）。
 
 ### スライド YAML
 
 ```yaml
 template: content   # title / content / conclusion / default、またはパス
 elements:
-  - type: text
+  - id: heading
     text: 見出し
-    x: 0.45
-    y: 0.06
-    w: 12.4
-    h: 0.5
-    fontSize: 32
-    bold: true
-    color: text
 ```
 
 - `template: default` は CLI の `--template` を使います
 - 名前だけ (`content`) なら `templates/content.yaml` を探します
 - パス (`templates/foo.yaml`) はプロジェクトルートからの相対です
 - **スライド側の値がテンプレートを上書き**します（`size` / `background` / `fonts` / `colors`）。`background` をスライドで指定したときだけ、マスター背景をスライド側で上書きします
-- テンプレートの `elements` はマスターへ。スライドの `elements` はそのスライドだけ（タイトル・本文）。`pageNumber` は描画時に各スライドへ載せます
+- テンプレートの **chrome**（`id` なし）はマスターへ。**スロット**（`id` あり）とスライドの `elements` はそのスライドだけ。`pageNumber` は描画時に各スライドへ載せます
 
 色は `#0B6BCB` / `0B6BCB` / パレット名（`accent`）のいずれでも指定できます。座標 `x,y,w,h` の単位はインチです（pptxgenjs のパーセント文字列 `"50%"` も可）。
+
+### スロット / Template slots
+
+タイトルやまとめのように、位置・フォントサイズはテンプレート側に置き、スライドは `text` だけ変える、という書き方ができます。同じ `id` の要素は **テンプレートをベースにスライド側をディープマージ**（衝突したキーはスライド優先）し、結果は **スライド上** に描画します（マスターには焼き込みません。テキストがスライドごとに違うためです）。
+
+```yaml
+# templates/title.yaml（抜粋）
+elements:
+  - type: shape          # id なし → スライドマスター（クローム）
+    shape: rect
+    x: 0
+    y: 0
+    w: 0.16
+    h: 7.5
+    fill: accent
+  - id: title            # スロット → 各スライドで text を上書き
+    type: text
+    x: 0.7
+    y: 2.15
+    w: 11.5
+    h: 1.2
+    fontSize: 40
+    bold: true
+    color: text
+    wrap: false
+  - id: subtitle
+    type: text
+    x: 0.7
+    y: 4.05
+    w: 12.0
+    h: 0.5
+    fontSize: 22
+    color: accent
+    wrap: false
+```
+
+```yaml
+# slides/01-title.yaml
+template: title
+elements:
+  - id: title
+    text: RISC-V 入門＆市場動向（2026年10月）
+  - id: subtitle
+    text: 基礎からSHD予測まで／出典付き
+```
+
+まとめスライドも同様です。`templates/conclusion.yaml` の `id: statement` に `wrap: false` とバナー形状を置き、スライドは 1 行だけ渡します。`結言` のようなラベルはテンプレートにもスライドにも置きません。
+
+```yaml
+# slides/08-conclusion.yaml
+template: conclusion
+elements:
+  - id: statement
+    text: 2026年、RISC-VはRVA23実機とAIで成長期へ。ただしオープンISA≠無償シリコン、対Armはこれから。
+```
+
+マージ規則:
+
+| テンプレート側 | スライド側 | 結果 |
+| --- | --- | --- |
+| `id` あり（かつ `master: true` / `role: chrome` ではない） | 同じ `id` | ディープマージして **スライド** に描画。スライドのキーが勝つ |
+| `id` なし、または `master: true` / `role: chrome` | — | 今日どおり **スライドマスター**（ヘッダー帯・静的フッターなど） |
+| スロット | 一致する `id` なし | テンプレートの既定のままスライドへ。`type: text` で `text` が空なら描画しない |
+| — | 一致するテンプレート `id` なし | 従来どおりスライド末尾に追加（完全な要素である必要あり） |
+| `pageNumber` | 任意 | 従来どおり描画時に `{{page}} / {{pages}}` を差し込み |
+
+`fill` や `line` のような入れ子オブジェクトは中までマージします。プリミティブと配列は置き換えです。
+
+本文テンプレートは `id: heading` と任意の `id: headingNote` を持っています。見出しの座標と 28pt はテンプレート側です。
 
 ### スライドマスター / Slide masters
 
@@ -234,13 +308,18 @@ Title text stays in slide YAML and is not fixed on the master.
 
 ## サンプル / Sample
 
-同梱のサンプルは、SHD Group 2026 の RISC-V 市場予測スライド（日本語）1 枚です。出荷数と売上のチャート画像を埋め、下部に 1 行のコールアウト、フッターに出典とページ番号を置きます。
+同梱のサンプルは、RISC-V の入門と SHD Group 2026 市場予測を出典付きでまとめた **8 枚**の日本語デッキです。表紙・本文・まとめはスロットで見出しを差し、図版 PNG を `assets/` から埋めます。
 
 | スライド | テンプレート | 内容 |
 | --- | --- | --- |
-| `01-market.yaml` | `default` | 市場予測。左: SoC 出荷数、右: SoC 売上、下部 1 行コメント |
-
-チャート PNG は `assets/riscv-shd-soc-units-2022-2031.png` と `assets/riscv-shd-soc-revenue-2022-2031.png` です。
+| `01-title.yaml` | `title` | 表紙。スロット `title` / `subtitle`。フッターは調査日 2026-10-06 |
+| `02-open-isa.yaml` | `content` | オープンな ISA。ライセンス比較図 |
+| `03-isa-blocks.yaml` | `content` | 基本 ISA＋拡張＋プロファイル |
+| `04-timeline.yaml` | `content` | 2010→2026 マイルストーン |
+| `05-rva23-year.yaml` | `content` | 2026年＝RVA23 ハードウェア元年（チャートなし） |
+| `06-market-soc.yaml` | `content` | SoC 出荷数・売上（SHD Tables 13–14） |
+| `07-market-ip.yaml` | `content` | CPU IP 売上 2024 $205M → 2031 $1.91B、CAGR 39.7% |
+| `08-conclusion.yaml` | `conclusion` | 1 行まとめ（`wrap: false`）。「結言」ラベルなし |
 
 生成:
 
@@ -251,7 +330,7 @@ npm run build-slides -- --slides slides --template templates/default.yaml --out 
 
 成功すると `dist/deck.pptx` ができます（`dist/` は `.gitignore` 対象です）。同じコマンドで生成したサンプルを `examples/sample-deck.pptx` に同梱しています。
 
-見出しはスライド YAML 側です（例: `fontSize: 28`）。本文・コールアウトは 20pt、出典フッターは 16pt、ページ番号は 18pt。1 行に収めたいテキストは `wrap: false` を付けます。
+見出しの位置とサイズはテンプレートのスロット側です。本文カードは 18pt、出典フッターは 16pt、ページ番号は 18pt。1 行に収めたいテキストは `wrap: false` を付けます。
 
 ## 開発 / Development
 

@@ -5,7 +5,9 @@ import { ZodError } from "zod";
 import {
   DEFAULT_SIZE,
   elementHasPagePlaceholder,
+  elementSchema,
   formatZodError,
+  isMasterChrome,
   pageNumberToElement,
   slideFileSchema,
   SlideConfigError,
@@ -13,6 +15,7 @@ import {
   type ResolvedSlide,
   type SlideElement,
   type SlideFileConfig,
+  type SlideInputElement,
   type SlideMasterDef,
   type TemplateConfig,
 } from "./schema.js";
@@ -105,23 +108,132 @@ function allocateMasterName(used: Set<string>, templatePath: string): string {
   return name;
 }
 
-function splitTemplateChrome(template: TemplateConfig): {
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/** Deep-merge plain objects; slide override wins on conflicting keys. Arrays / primitives replace. */
+export function deepMergeRecord(
+  base: Record<string, unknown>,
+  override: Record<string, unknown>,
+): Record<string, unknown> {
+  const out: Record<string, unknown> = { ...base };
+  for (const [key, value] of Object.entries(override)) {
+    if (value === undefined || value === null) continue;
+    const prev = out[key];
+    if (isPlainObject(prev) && isPlainObject(value)) {
+      out[key] = deepMergeRecord(prev, value);
+    } else {
+      out[key] = value;
+    }
+  }
+  return out;
+}
+
+export function splitTemplateElements(
+  template: TemplateConfig,
+  templateSource: string,
+): {
   masterElements: SlideElement[];
   overlayElements: SlideElement[];
+  slots: SlideElement[];
 } {
   const masterElements: SlideElement[] = [];
   const overlayElements: SlideElement[] = [];
+  const slots: SlideElement[] = [];
+  const seen = new Set<string>();
+
   for (const el of template.elements ?? []) {
-    if (elementHasPagePlaceholder(el)) overlayElements.push(el);
-    else masterElements.push(el);
+    if (el.role === "slot" && !el.id) {
+      throw new SlideConfigError(
+        `Template slot is missing id in ${templateSource} (role: slot requires id)`,
+      );
+    }
+    if (isMasterChrome(el)) {
+      if (elementHasPagePlaceholder(el)) overlayElements.push(el);
+      else masterElements.push(el);
+      continue;
+    }
+    const id = el.id as string;
+    if (seen.has(id)) {
+      throw new SlideConfigError(`Duplicate template slot id "${id}" in ${templateSource}`);
+    }
+    seen.add(id);
+    slots.push(el);
   }
-  const pageNumber = template.pageNumber;
-  if (pageNumber) overlayElements.push(pageNumberToElement(pageNumber));
-  return { masterElements, overlayElements };
+
+  if (template.pageNumber) {
+    overlayElements.push(pageNumberToElement(template.pageNumber));
+  }
+  return { masterElements, overlayElements, slots };
+}
+
+/**
+ * Template slots (template order) merged with matching slide `{ id }` overrides,
+ * then unmatched slide elements appended.
+ */
+export function mergeSlotElements(
+  templateSlots: SlideElement[],
+  slideElements: SlideInputElement[],
+  source: string,
+): SlideElement[] {
+  const slotById = new Map<string, SlideElement>();
+  for (const slot of templateSlots) {
+    if (slot.id) slotById.set(slot.id, slot);
+  }
+
+  const overrideById = new Map<string, Record<string, unknown>>();
+  const extras: SlideInputElement[] = [];
+
+  for (const raw of slideElements) {
+    if (raw.id && slotById.has(raw.id)) {
+      if (overrideById.has(raw.id)) {
+        throw new SlideConfigError(`Duplicate slot id "${raw.id}" in ${source}`);
+      }
+      overrideById.set(raw.id, raw as Record<string, unknown>);
+    } else {
+      extras.push(raw);
+    }
+  }
+
+  const mergedSlots = templateSlots.map((slot) => {
+    const override = slot.id ? overrideById.get(slot.id) : undefined;
+    const merged = override
+      ? deepMergeRecord(slot as unknown as Record<string, unknown>, override)
+      : (slot as unknown as Record<string, unknown>);
+    const parsed = elementSchema.safeParse(merged);
+    if (!parsed.success) {
+      throw new SlideConfigError(
+        `Slot "${slot.id ?? "?"}" in ${source} is incomplete after merging template + slide override:\n` +
+          formatZodError(parsed.error, source),
+      );
+    }
+    return parsed.data;
+  }).filter((el) => {
+    // Optional text slots (e.g. headingNote) are omitted when the slide leaves them empty.
+    if (el.type === "text" && !(el.text && el.text.length > 0)) return false;
+    return true;
+  });
+
+  const extraElements = extras.map((raw) => {
+    const parsed = elementSchema.safeParse(raw);
+    if (!parsed.success) {
+      const id = raw.id ? ` (id: ${raw.id})` : "";
+      throw new SlideConfigError(
+        `Element${id} in ${source} is not a complete slide element and does not match a template slot.\n` +
+          formatZodError(parsed.error, source),
+      );
+    }
+    return parsed.data;
+  });
+
+  return [...mergedSlots, ...extraElements];
 }
 
 function mergeSlide(
   template: TemplateConfig,
+  slots: SlideElement[],
+  overlayElements: SlideElement[],
   slide: SlideFileConfig,
   source: string,
   masterName: string,
@@ -131,7 +243,6 @@ function mergeSlide(
     height: slide.size?.height ?? template.size?.height ?? DEFAULT_SIZE.height,
   };
 
-  const { overlayElements } = splitTemplateChrome(template);
   const pageNumber = slide.pageNumber
     ? pageNumberToElement(slide.pageNumber)
     : undefined;
@@ -151,7 +262,7 @@ function mergeSlide(
     subject: slide.subject ?? template.subject,
     lang: slide.lang ?? template.lang,
     notes: slide.notes,
-    elements: [...overlay, ...(slide.elements ?? [])],
+    elements: [...overlay, ...mergeSlotElements(slots, slide.elements ?? [], source)],
   };
 }
 
@@ -179,6 +290,8 @@ export function listSlideFiles(slidesDir: string): string[] {
 interface CachedTemplate {
   config: TemplateConfig;
   master: SlideMasterDef;
+  slots: SlideElement[];
+  overlayElements: SlideElement[];
 }
 
 export function loadDeck(options: LoadOptions): {
@@ -201,17 +314,21 @@ export function loadDeck(options: LoadOptions): {
       throw new SlideConfigError(`Template file not found: ${filePath}`);
     }
     const config = parseYamlFile(filePath, templateSchema);
-    const { masterElements } = splitTemplateChrome(config);
+    const templateSource = path.relative(options.root, filePath) || filePath;
+    const { masterElements, overlayElements, slots } = splitTemplateElements(
+      config,
+      templateSource,
+    );
     const master: SlideMasterDef = {
       name: allocateMasterName(usedMasterNames, filePath),
-      source: path.relative(options.root, filePath) || filePath,
+      source: templateSource,
       background: config.background,
       fonts: { ...config.fonts },
       colors: { ...config.colors },
       lang: config.lang,
       elements: masterElements,
     };
-    const entry = { config, master };
+    const entry = { config, master, slots, overlayElements };
     templateCache.set(filePath, entry);
     masters.push(master);
     return entry;
@@ -222,7 +339,14 @@ export function loadDeck(options: LoadOptions): {
     const templatePath = resolveTemplatePath(slide.template, options.defaultTemplate, options.root);
     const loaded = loadTemplate(templatePath);
     const relative = path.relative(options.root, slidePath) || slidePath;
-    return mergeSlide(loaded.config, slide, relative, loaded.master.name);
+    return mergeSlide(
+      loaded.config,
+      loaded.slots,
+      loaded.overlayElements,
+      slide,
+      relative,
+      loaded.master.name,
+    );
   });
 
   const first = slides[0];

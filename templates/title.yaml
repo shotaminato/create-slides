@@ -1,8 +1,8 @@
-# Title slide chrome — lives on the PowerPoint slide master (pptxgenjs defineSlideMaster).
-# Slide YAML supplies title/content. Page numbers are injected at render time.
-title: RISC-V市場予測（SHD Group 2026）
+# Title slide: chrome on the master; `id: title` / `id: subtitle` are slots
+# merged onto each slide (geometry and font live here; slides override text).
+title: RISC-V 入門＆市場動向（2026年10月）
 author: create-slides
-subject: SHD102-26 Abridged, April 2026
+subject: 基礎からSHD予測まで／出典付き
 
 size:
   width: 13.333
@@ -45,7 +45,7 @@ elements:
     h: 0.48
     fill: footer
   - type: text
-    text: SHD102-26 Abridged, April 2026, Tables 13–14（公開数値から再作図）
+    text: 調査日 2026-10-06
     x: 0.55
     y: 7.02
     w: 10.1
@@ -54,14 +54,44 @@ elements:
     color: muted
     valign: middle
     wrap: false
+  - type: shape
+    shape: roundRect
+    x: 0.7
+    y: 3.75
+    w: 0.55
+    h: 0.1
+    fill: accent
+    rectRadius: 0.5
+
+  - id: title
+    type: text
+    x: 0.7
+    y: 2.15
+    w: 11.5
+    h: 1.2
+    fontSize: 40
+    bold: true
+    color: text
+    valign: middle
+    wrap: false
+  - id: subtitle
+    type: text
+    x: 0.7
+    y: 4.05
+    w: 12.0
+    h: 0.5
+    fontSize: 22
+    color: accent
+    wrap: false
 
 pageNumber:
   x: 10.8
   y: 7.02
-  w: 2.1
+  w: 2.2
   h: 0.48
   fontSize: 18
   color: muted
   align: right
   valign: middle
+  wrap: false
   text: "{{page}} / {{pages}}"

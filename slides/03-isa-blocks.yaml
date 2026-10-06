@@ -1,0 +1,66 @@
+template: content
+notes: モジュール方式。RV32/64 の I に拡張を足す。RVA23 は V と H が必須。オープン ISA は無料シリコンではない。
+
+elements:
+  - id: heading
+    text: 基本ISA＋拡張＋プロファイル
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 0.88
+    w: 4.05
+    h: 1.45
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "RV32/64 の I に\nM / A / F / D / C / V を足す"
+    fontSize: 18
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 4.6
+    y: 0.88
+    w: 4.05
+    h: 1.45
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "RVA23（2024-10 批准）\nV と H が必須"
+    fontSize: 18
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 8.8
+    y: 0.88
+    w: 4.1
+    h: 1.45
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "オープンISA ≠ 無償シリコン\nコアは IP／OSS／自社設計"
+    fontSize: 18
+    color: text
+    align: center
+    valign: middle
+
+  - type: image
+    src: assets/riscv-isa-building-blocks.png
+    x: 1.4
+    y: 2.45
+    w: 10.5
+    h: 4.4
+    sizing: contain
+    altText: RISC-V ISA の構成。基本命令セット、標準拡張、プロファイル

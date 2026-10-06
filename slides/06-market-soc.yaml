@@ -1,0 +1,90 @@
+template: content
+notes: SHD Group 2026年版。出荷数と売上は 2024 年まで実績、2025 年以降は予測。売上は RISC-V を含む SoC 全体の金額。
+
+elements:
+  - id: heading
+    text: RISC-V市場予測（SHD Group 2026）
+    w: 8.4
+    fontSize: 26
+  - id: headingNote
+    text: 実績〜2024 ／ 予測2025〜
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 0.82
+    w: 4.05
+    h: 0.95
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.08
+    text: "2031年 出荷 360億個\nCAGR 31.7%"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 4.6
+    y: 0.82
+    w: 4.05
+    h: 0.95
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.08
+    text: "2031年 売上 3,180億ドル\nCAGR 22.5%"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 8.8
+    y: 0.82
+    w: 4.1
+    h: 0.95
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.08
+    text: "普及率 約33%\nSoC全体の金額に注意"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+
+  - type: image
+    src: assets/riscv-shd-soc-units-2022-2031.png
+    x: 0.35
+    y: 1.88
+    w: 6.3
+    h: 4.5
+    sizing: contain
+    altText: RISC-V搭載SoCの出荷数と普及率（2022〜2031）
+
+  - type: image
+    src: assets/riscv-shd-soc-revenue-2022-2031.png
+    x: 6.7
+    y: 1.88
+    w: 6.3
+    h: 4.5
+    sizing: contain
+    altText: RISC-V搭載SoCの売上と普及率（2022〜2031）
+
+  - type: text
+    text: SHD102-26 Abridged, April 2026, Tables 13–14（公開数値から再作図）
+    x: 0.45
+    y: 6.5
+    w: 12.4
+    h: 0.4
+    fontSize: 16
+    color: muted
+    valign: middle
+    wrap: false

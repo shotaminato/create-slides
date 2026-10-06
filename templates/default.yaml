@@ -1,8 +1,8 @@
 # Shared visual language (also used when a slide sets template: default).
 # Chrome goes on the slide master; page numbers are injected per slide.
-title: RISC-V市場予測（SHD Group 2026）
+title: RISC-V 入門＆市場動向（2026年10月）
 author: create-slides
-subject: SHD102-26 Abridged, April 2026
+subject: 基礎からSHD予測まで／出典付き
 
 size:
   width: 13.333
@@ -38,7 +38,7 @@ elements:
     h: 0.48
     fill: footer
   - type: text
-    text: SHD102-26 Abridged, April 2026, Tables 13–14（公開数値から再作図）
+    text: RISC-V 入門＆市場動向  ·  2026年10月
     x: 0.32
     y: 7.02
     w: 10.35
@@ -57,4 +57,5 @@ pageNumber:
   color: muted
   align: right
   valign: middle
+  wrap: false
   text: "{{page}} / {{pages}}"

@@ -1,0 +1,8 @@
+template: title
+notes: 表紙。調査日 2026-10-06。基礎レポートと SHD 予測を出典付きでまとめた入門。
+
+elements:
+  - id: title
+    text: RISC-V 入門＆市場動向（2026年10月）
+  - id: subtitle
+    text: 基礎からSHD予測まで／出典付き

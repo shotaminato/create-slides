@@ -99,9 +99,21 @@ const textStyle = z.object({
   wrap: z.boolean().optional(),
 });
 
+const slotRole = z.enum(["chrome", "slot"]);
+
+const slotMeta = {
+  /** Same id on a slide deep-merges onto this element and draws on the slide (not the master). */
+  id: z.string().min(1).optional(),
+  /** Force this element onto the slide master even if it has an `id`. */
+  master: z.boolean().optional(),
+  /** `chrome` = master; `slot` = per-slide (requires `id`). */
+  role: slotRole.optional(),
+};
+
 export const textElementSchema = box.merge(textStyle).extend({
   type: z.literal("text"),
   fill: fillSchema.optional(),
+  ...slotMeta,
 });
 
 const imageSizingObject = z.object({
@@ -120,6 +132,7 @@ export const imageElementSchema = box.extend({
   rounding: z.boolean().optional(),
   transparency: z.number().min(0).max(100).optional(),
   altText: z.string().optional(),
+  ...slotMeta,
 });
 
 export const shapeElementSchema = box.merge(textStyle).extend({
@@ -132,6 +145,7 @@ export const shapeElementSchema = box.merge(textStyle).extend({
   rotate: z.number().optional(),
   flipH: z.boolean().optional(),
   flipV: z.boolean().optional(),
+  ...slotMeta,
 });
 
 export const elementSchema = z.discriminatedUnion("type", [
@@ -139,6 +153,49 @@ export const elementSchema = z.discriminatedUnion("type", [
   imageElementSchema,
   shapeElementSchema,
 ]);
+
+/**
+ * Per-slide slot override. `id` is required; geometry/type come from the matching
+ * template element. Slide keys win on conflict. Also used for extra complete elements
+ * that happen to include an `id`.
+ */
+export const slotOverrideSchema = z.object({
+  id: z.string().min(1),
+  type: z.enum(["text", "image", "shape"]).optional(),
+  master: z.boolean().optional(),
+  role: slotRole.optional(),
+  x: coord.optional(),
+  y: coord.optional(),
+  w: coord.optional(),
+  h: coord.optional(),
+  text: z.string().optional(),
+  fontFace: z.string().optional(),
+  fontSize: z.number().positive().optional(),
+  color: hexOrName.optional(),
+  align: alignH.optional(),
+  valign: alignV.optional(),
+  bold: z.boolean().optional(),
+  italic: z.boolean().optional(),
+  underline: z.boolean().optional(),
+  margin: z.number().optional(),
+  lang: z.string().optional(),
+  wrap: z.boolean().optional(),
+  fill: fillSchema.optional(),
+  src: z.string().min(1).optional(),
+  sizing: z.union([z.enum(["contain", "cover", "crop"]), imageSizingObject]).optional(),
+  rotate: z.number().optional(),
+  rounding: z.boolean().optional(),
+  transparency: z.number().min(0).max(100).optional(),
+  altText: z.string().optional(),
+  shape: z.string().min(1).optional(),
+  line: lineSchema.optional(),
+  rectRadius: z.number().min(0).max(1).optional(),
+  flipH: z.boolean().optional(),
+  flipV: z.boolean().optional(),
+});
+
+/** Full element or a partial override of a template slot (`id` + fields to change). */
+export const slideElementSchema = z.union([elementSchema, slotOverrideSchema]);
 
 export const fontsSchema = z.object({
   default: z.string().optional(),
@@ -157,7 +214,7 @@ export const sizeSchema = z.object({
  */
 export const pageNumberSchema = box.merge(textStyle);
 
-export const themeFieldsSchema = z.object({
+const themeBaseSchema = z.object({
   size: sizeSchema.optional(),
   background: hexOrName.optional(),
   fonts: fontsSchema.optional(),
@@ -166,16 +223,25 @@ export const themeFieldsSchema = z.object({
   author: z.string().optional(),
   subject: z.string().optional(),
   lang: z.string().optional(),
-  /** Static chrome drawn on the PowerPoint slide master (not copied onto each slide). */
-  elements: z.array(elementSchema).optional(),
   pageNumber: pageNumberSchema.optional(),
 });
 
-export const templateSchema = themeFieldsSchema;
+export const templateSchema = themeBaseSchema.extend({
+  /**
+   * Template elements. Those with `id` (and not `master: true` / `role: chrome`)
+   * are slots merged onto each slide. The rest are slide-master chrome.
+   */
+  elements: z.array(elementSchema).optional(),
+});
 
-export const slideFileSchema = themeFieldsSchema.extend({
+/** Alias: template-shaped theme fields (full elements only). */
+export const themeFieldsSchema = templateSchema;
+
+export const slideFileSchema = themeBaseSchema.extend({
   template: z.string().optional(),
   notes: z.string().optional(),
+  /** Complete elements and/or `{ id, ... }` overrides of template slots. */
+  elements: z.array(slideElementSchema).optional(),
 });
 
 export type Coord = z.infer<typeof coord>;
@@ -185,9 +251,22 @@ export type TextElement = z.infer<typeof textElementSchema>;
 export type ImageElement = z.infer<typeof imageElementSchema>;
 export type ShapeElement = z.infer<typeof shapeElementSchema>;
 export type SlideElement = z.infer<typeof elementSchema>;
+export type SlotOverride = z.infer<typeof slotOverrideSchema>;
+export type SlideInputElement = z.infer<typeof slideElementSchema>;
 export type TemplateConfig = z.infer<typeof templateSchema>;
 export type SlideFileConfig = z.infer<typeof slideFileSchema>;
 export type PageNumberConfig = z.infer<typeof pageNumberSchema>;
+
+export function isMasterChrome(el: {
+  id?: string;
+  master?: boolean;
+  role?: "chrome" | "slot";
+}): boolean {
+  if (el.master === true) return true;
+  if (el.role === "chrome") return true;
+  if (el.role === "slot") return false;
+  return !el.id;
+}
 
 export interface SlideMasterDef {
   /** pptxgenjs `defineSlideMaster` title / `addSlide({ masterName })`. */
@@ -244,6 +323,7 @@ export function pageNumberToElement(cfg: PageNumberConfig): TextElement {
     underline: cfg.underline,
     margin: cfg.margin,
     lang: cfg.lang,
+    wrap: cfg.wrap,
   };
 }
 

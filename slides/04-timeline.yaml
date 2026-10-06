@@ -1,0 +1,69 @@
+template: content
+notes: 2010 年 Berkeley 開始から 2026 年 RVA23 ハードウェア元年までの主要マイルストーン。
+
+elements:
+  - id: heading
+    text: 2010→2026 マイルストーン
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 0.86
+    w: 4.05
+    h: 0.85
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "2010 Berkeley ／ 2015 Foundation"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 4.6
+    y: 0.86
+    w: 4.05
+    h: 0.85
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "2020 RVI ／ 2024 RVA23 批准"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 8.8
+    y: 0.86
+    w: 4.1
+    h: 0.85
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "2026 K3 出荷・Ubuntu 26.04 LTS"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: image
+    src: assets/riscv-timeline-2010-2026.png
+    x: 0.4
+    y: 1.85
+    w: 12.5
+    h: 5.0
+    sizing: contain
+    altText: RISC-V 年表（2010→2026）

@@ -1,0 +1,85 @@
+template: content
+notes: SHD Group Table 32。RISC-V CPU IP 売上。2024年 2.05億ドル、2031年 19.1億ドル、CAGR 39.7%。
+
+elements:
+  - id: heading
+    text: RISC-V CPU IP売上予測
+    w: 8.5
+  - id: headingNote
+    text: 2024 $205M → 2031 $1.91B
+    fontSize: 18
+    color: accent
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 0.85
+    w: 4.05
+    h: 0.72
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.08
+    text: "2024年  2.05億ドル（実績）"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 4.6
+    y: 0.85
+    w: 4.05
+    h: 0.72
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.08
+    text: "2031年  19.1億ドル（予測）"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 8.8
+    y: 0.85
+    w: 4.1
+    h: 0.72
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.08
+    text: "CAGR 39.7%（2025–31）"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: image
+    src: assets/riscv-shd-ip-revenue-2022-2031.png
+    x: 1.15
+    y: 1.68
+    w: 11.0
+    h: 4.85
+    sizing: contain
+    altText: RISC-V CPU IP 市場売上の内訳（2022〜2031）
+
+  - type: text
+    text: SHD102-26 Abridged, April 2026, Table 32（公開数値から再作図）
+    x: 0.45
+    y: 6.58
+    w: 12.4
+    h: 0.35
+    fontSize: 16
+    color: muted
+    valign: middle
+    wrap: false

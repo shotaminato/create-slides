@@ -1,0 +1,83 @@
+template: content
+notes: RISC-V はオープンな ISA（仕様）。チップでも会社でもない。実装 IP は別コスト。
+
+elements:
+  - id: heading
+    text: RISC-Vは「オープンなISA（仕様）」
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 0.9
+    w: 5.7
+    h: 1.35
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "チップでも会社でもない\nソフトウェアと CPU の「約束事」。"
+    fontSize: 18
+    color: text
+    align: left
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 2.38
+    w: 5.7
+    h: 1.35
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "仕様はロイヤリティフリー\n実装 IP・検証・製造は別コスト。"
+    fontSize: 18
+    color: text
+    align: left
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 3.86
+    w: 5.7
+    h: 1.35
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "2010 Berkeley → 2020 RVI\n標準団体はチップを作らない。"
+    fontSize: 18
+    color: text
+    align: left
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 5.34
+    w: 5.7
+    h: 1.35
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "強みは自由度。弱みは高性能の実績\nと断片化リスク。"
+    fontSize: 18
+    color: text
+    align: left
+    valign: middle
+
+  - type: image
+    src: assets/riscv-vs-arm-license-model.png
+    x: 6.25
+    y: 0.9
+    w: 6.7
+    h: 5.8
+    sizing: contain
+    altText: RISC-V と Arm のライセンスモデル比較
