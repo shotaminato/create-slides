@@ -1,0 +1,44 @@
+# Widescreen 16:9 (13.333" × 7.5") — shared defaults for every slide
+title: create-slides demo
+author: create-slides
+subject: YAML-driven PowerPoint generator
+
+size:
+  width: 13.333
+  height: 7.5
+
+background: "0F172A"
+
+fonts:
+  default: Calibri
+  heading: Calibri
+
+colors:
+  background: "0F172A"
+  text: "F8FAFC"
+  muted: "94A3B8"
+  accent: "38BDF8"
+  accent2: "34D399"
+  accent3: "FBBF24"
+  accent4: "F472B6"
+  card: "1E293B"
+  line: "64748B"
+
+# Shared chrome: left accent + footer bar
+elements:
+  - type: shape
+    shape: rect
+    x: 0
+    y: 7.15
+    w: 13.333
+    h: 0.35
+    fill: "020617"
+  - type: text
+    text: create-slides  ·  YAML → PPTX
+    x: 0.5
+    y: 7.15
+    w: 12.3
+    h: 0.35
+    fontSize: 11
+    color: muted
+    valign: middle
