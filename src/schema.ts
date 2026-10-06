@@ -95,6 +95,8 @@ const textStyle = z.object({
   underline: z.boolean().optional(),
   margin: z.number().optional(),
   lang: z.string().optional(),
+  /** pptxgenjs `wrap`. false keeps a one-liner from wrapping. */
+  wrap: z.boolean().optional(),
 });
 
 export const textElementSchema = box.merge(textStyle).extend({

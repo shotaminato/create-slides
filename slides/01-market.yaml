@@ -1,0 +1,70 @@
+template: default
+notes: SHD Group 2026。RISC-V 搭載 SoC の出荷数と売上。2024年まで実績、2025年以降は予測。
+
+elements:
+  - type: shape
+    shape: rect
+    x: 0.32
+    y: 0.26
+    w: 0.09
+    h: 0.42
+    fill: navy
+
+  - type: text
+    text: RISC-V市場予測（SHD Group 2026）
+    x: 0.52
+    y: 0.2
+    w: 8.2
+    h: 0.52
+    fontSize: 28
+    bold: true
+    color: text
+    valign: middle
+    wrap: false
+
+  - type: text
+    text: 2024年まで実績／2025年以降は予測
+    x: 8.55
+    y: 0.24
+    w: 4.45
+    h: 0.46
+    fontSize: 16
+    color: muted
+    align: right
+    valign: middle
+    wrap: false
+
+  - type: image
+    src: assets/riscv-shd-soc-units-2022-2031.png
+    x: 0.28
+    y: 0.78
+    w: 6.38
+    h: 3.6
+    sizing: contain
+    altText: RISC-V搭載SoCの出荷数と普及率（2022〜2031）
+
+  - type: image
+    src: assets/riscv-shd-soc-revenue-2022-2031.png
+    x: 6.76
+    y: 0.78
+    w: 6.38
+    h: 3.6
+    sizing: contain
+    altText: RISC-V搭載SoCの売上と普及率（2022〜2031）
+
+  - type: shape
+    shape: roundRect
+    x: 0.32
+    y: 5.55
+    w: 12.69
+    h: 0.95
+    fill: navy
+    rectRadius: 0.14
+    text: "2026年、RISC-VはRVA23実機とAIで成長期へ。ただしオープンISA≠無償シリコン、対Armはこれから。"
+    fontSize: 20
+    bold: true
+    color: "FFFFFF"
+    align: center
+    valign: middle
+    wrap: false
+    margin: 4

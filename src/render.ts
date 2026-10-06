@@ -117,6 +117,7 @@ function addText(slideObj: PptxSlide, el: TextElement, slide: ResolvedSlide, pag
     margin: el.margin ?? 0,
     fill,
     lang: el.lang ?? slide.lang,
+    ...(el.wrap !== undefined ? { wrap: el.wrap } : {}),
   });
 }
 
@@ -175,6 +176,7 @@ function addShape(slideObj: PptxSlide, el: ShapeElement, slide: ResolvedSlide, p
       underline: el.underline,
       margin: el.margin ?? 4,
       lang: el.lang ?? slide.lang,
+      ...(el.wrap !== undefined ? { wrap: el.wrap } : {}),
     });
     return;
   }
@@ -279,6 +281,7 @@ function elementToMasterObject(
           margin: el.margin ?? 0,
           fill,
           lang: el.lang ?? master.lang,
+          ...(el.wrap !== undefined ? { wrap: el.wrap } : {}),
         },
       },
     };
@@ -326,6 +329,7 @@ function elementToMasterObject(
         underline: el.underline,
         margin: el.margin ?? 4,
         lang: el.lang ?? master.lang,
+        ...(el.wrap !== undefined ? { wrap: el.wrap } : {}),
       },
     },
   };

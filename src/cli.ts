@@ -28,7 +28,7 @@ Options:
   --root <dir>         Project root (default: cwd, walking up to package.json)
   -h, --help           Show this help
 
-Slide files are loaded in sorted filename order (01-title.yaml, 02-shapes.yaml, …).
+Slide files are loaded in sorted filename order (01-market.yaml, …).
 Each slide may set template: default (or a name/path). Slide fields override the template.
 `.trim();
   console.log(text);

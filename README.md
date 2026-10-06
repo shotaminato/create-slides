@@ -44,7 +44,7 @@ npx tsx src/cli.ts --slides slides --template templates/default.yaml --out dist/
 | `--out <file>` | `dist/deck.pptx` | 出力 `.pptx` |
 | `--root <dir>` | cwd（`package.json` を上方向に探索） | プロジェクトルート。画像パスの基準 |
 
-スライドの読み込み順は **ファイル名のソート順** です（`01-title.yaml`, `02-overview.yaml`, …）。
+スライドの読み込み順は **ファイル名のソート順** です（`01-market.yaml`, …）。
 
 存在しないファイル、壊れた YAML、スキーマ違反、欠けている画像は、パス付きのエラーで終了します。
 
@@ -58,12 +58,11 @@ create-slides/
     content.yaml      # 本文
     conclusion.yaml   # まとめ / クロージング
   slides/
-    01-title.yaml
-    02-overview.yaml
-    …
-    08-conclusion.yaml
+    01-market.yaml
   assets/
     logo.png
+    riscv-shd-soc-units-2022-2031.png
+    riscv-shd-soc-revenue-2022-2031.png
   examples/
     sample-deck.pptx
   src/
@@ -102,7 +101,7 @@ create-slides/
 - `elements` — **スライドマスター**（pptxgenjs `defineSlideMaster`）に載せる共通クローム。ヘッダー／フッター帯、アクセント、静的なフッターラベルなど。各スライドへは複製しません
 - `pageNumber` — フッター右の `current / total`。pptxgenjs の `slideNumber` は現在ページのフィールドだけなので、描画時に差し込みます。`text` の既定は `{{page}} / {{pages}}`（1 始まり）。別名: `{{currentPage}}` / `{{totalPages}}`。`align` の既定は `right`
 
-サンプルの title / content / conclusion / default は、マスターに背景とフッター帯、フッター左にデッキ名を置き、各スライドの右寄せで `1 / 8` 形式のページ番号を描画します。**見出しテキストはマスターに焼き込みません**（各スライド YAML の `elements`）。
+サンプルの title / content / conclusion / default は、マスターに背景とフッター帯を置き、フッター左に出典、右寄せで `1 / N` 形式のページ番号を描画します。**見出しテキストはマスターに焼き込みません**（各スライド YAML の `elements`）。
 
 ### スライド YAML
 
@@ -150,6 +149,7 @@ Title text stays in slide YAML and is not fixed on the master.
 | `bold` / `italic` / `underline` | boolean |
 | `fill` | テキストボックス背景（図形と同じ透明度の指定が可能） |
 | `margin` | 余白 |
+| `wrap` | テキスト折り返し。`false` で 1 行のまま（バナー向け） |
 | `lang` | 未指定時はテンプレートの `lang` |
 
 ### `type: image`
@@ -172,7 +172,7 @@ Title text stays in slide YAML and is not fixed on the master.
 | `text` | 図形内テキスト（pptxgenjs の `addText` + `shape`） |
 | `rectRadius` | `roundRect` の丸み（0–1） |
 | `rotate` / `flipH` / `flipV` | 任意 |
-| テキスト系 | `fontSize`, `color`, `align`, `valign`, `bold`, `lang` など |
+| テキスト系 | `fontSize`, `color`, `align`, `valign`, `bold`, `lang`, `wrap` など |
 
 `line.beginArrowType` / `endArrowType` は `none` / `arrow` / `diamond` / `oval` / `stealth` / `triangle` です。
 
@@ -234,18 +234,13 @@ Title text stays in slide YAML and is not fixed on the master.
 
 ## サンプル / Sample
 
-同梱のサンプルは、表紙 → 本文複数枚 → まとめ、の RISC-V 解説デッキ（日本語）です。本文図に rect / roundRect / ellipse / 矢印 / triangle を使っています。
+同梱のサンプルは、SHD Group 2026 の RISC-V 市場予測スライド（日本語）1 枚です。出荷数と売上のチャート画像を埋め、下部に 1 行のコールアウト、フッターに出典とページ番号を置きます。
 
 | スライド | テンプレート | 内容 |
 | --- | --- | --- |
-| `01-title.yaml` | `title` | 表紙 |
-| `02-overview.yaml` | `content` | RISC-V とは |
-| `03-principles.yaml` | `content` | 設計思想 |
-| `04-base-isa.yaml` | `content` | ベース整数 ISA とレジスタ |
-| `05-formats.yaml` | `content` | 命令フォーマット |
-| `06-extensions.yaml` | `content` | 標準拡張 |
-| `07-privilege.yaml` | `content` | 特権レベル |
-| `08-conclusion.yaml` | `conclusion` | まとめ |
+| `01-market.yaml` | `default` | 市場予測。左: SoC 出荷数、右: SoC 売上、下部 1 行コメント |
+
+チャート PNG は `assets/riscv-shd-soc-units-2022-2031.png` と `assets/riscv-shd-soc-revenue-2022-2031.png` です。
 
 生成:
 
@@ -256,7 +251,7 @@ npm run build-slides -- --slides slides --template templates/default.yaml --out 
 
 成功すると `dist/deck.pptx` ができます（`dist/` は `.gitignore` 対象です）。同じコマンドで生成したサンプルを `examples/sample-deck.pptx` に同梱しています。
 
-本文の見出しは content テンプレートのヘッダー帯の上に、各 YAML で置いてください（例: `y: 0.04`, `h: 0.64`, `fontSize: 32`）。サンプルの本文・ラベルは 20pt、フッターは 18pt、表紙見出しは 52pt です。
+見出しはスライド YAML 側です（例: `fontSize: 28`）。本文・コールアウトは 20pt、出典フッターは 16pt、ページ番号は 18pt。1 行に収めたいテキストは `wrap: false` を付けます。
 
 ## 開発 / Development
 
