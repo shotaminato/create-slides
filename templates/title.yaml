@@ -46,8 +46,18 @@ elements:
     text: RISC-V 入門  ·  オープン ISA
     x: 0.55
     y: 7.12
-    w: 12.3
+    w: 10.1
     h: 0.38
     fontSize: 14
     color: muted
+    valign: middle
+  - type: text
+    text: "{{page}} / {{pages}}"
+    x: 10.8
+    y: 7.12
+    w: 2.1
+    h: 0.38
+    fontSize: 14
+    color: muted
+    align: right
     valign: middle

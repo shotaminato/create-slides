@@ -27,6 +27,20 @@ export interface RenderOptions {
 
 type Palette = Record<string, string>;
 
+interface PageContext {
+  page: number;
+  pages: number;
+}
+
+/** Substitute {{page}} / {{pages}} (and currentPage / totalPages aliases) at render time. */
+export function applyPagePlaceholders(text: string, ctx: PageContext): string {
+  return text
+    .replaceAll("{{currentPage}}", String(ctx.page))
+    .replaceAll("{{totalPages}}", String(ctx.pages))
+    .replaceAll("{{page}}", String(ctx.page))
+    .replaceAll("{{pages}}", String(ctx.pages));
+}
+
 function toFill(
   fill: FillConfig | undefined,
   palette: Palette,
@@ -82,10 +96,10 @@ function fontFace(el: { fontFace?: string }, slide: ResolvedSlide, heading = fal
   return el.fontFace ?? (heading ? slide.fonts.heading : undefined) ?? slide.fonts.default;
 }
 
-function addText(slideObj: PptxSlide, el: TextElement, slide: ResolvedSlide): void {
+function addText(slideObj: PptxSlide, el: TextElement, slide: ResolvedSlide, page: PageContext): void {
   const color = resolveColor(el.color, slide.colors, "text");
   const fill = toFill(el.fill, slide.colors);
-  slideObj.addText(el.text ?? "", {
+  slideObj.addText(applyPagePlaceholders(el.text ?? "", page), {
     x: el.x,
     y: el.y,
     w: el.w,
@@ -149,7 +163,7 @@ function addImage(
   });
 }
 
-function addShape(slideObj: PptxSlide, el: ShapeElement, slide: ResolvedSlide): void {
+function addShape(slideObj: PptxSlide, el: ShapeElement, slide: ResolvedSlide, page: PageContext): void {
   const resolved = resolveShapeName(el.shape);
   const shapeType = resolved.type;
   const fill = toFill(el.fill, slide.colors);
@@ -170,7 +184,7 @@ function addShape(slideObj: PptxSlide, el: ShapeElement, slide: ResolvedSlide): 
   };
 
   if (el.text !== undefined && el.text !== "") {
-    slideObj.addText(el.text, {
+    slideObj.addText(applyPagePlaceholders(el.text, page), {
       ...common,
       shape: shapeType,
       fontFace: fontFace(el, slide),
@@ -195,16 +209,17 @@ function renderElement(
   el: SlideElement,
   slide: ResolvedSlide,
   root: string,
+  page: PageContext,
 ): void {
   switch (el.type) {
     case "text":
-      addText(slideObj, el, slide);
+      addText(slideObj, el, slide, page);
       return;
     case "image":
       addImage(slideObj, el, slide.source, root);
       return;
     case "shape":
-      addShape(slideObj, el, slide);
+      addShape(slideObj, el, slide, page);
       return;
   }
 }
@@ -226,7 +241,10 @@ export async function renderDeck(
   if (options.author) pptx.author = options.author;
   if (options.subject) pptx.subject = options.subject;
 
-  for (const slide of slides) {
+  const pages = slides.length;
+  for (let i = 0; i < slides.length; i += 1) {
+    const slide = slides[i];
+    const page = { page: i + 1, pages };
     const slideObj = pptx.addSlide();
     const bg = resolveColor(slide.background, slide.colors, "background");
     if (bg) {
@@ -236,7 +254,7 @@ export async function renderDeck(
       slideObj.addNotes(slide.notes);
     }
     for (const el of slide.elements) {
-      renderElement(slideObj, el, slide, options.root);
+      renderElement(slideObj, el, slide, options.root, page);
     }
   }
 

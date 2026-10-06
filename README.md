@@ -100,6 +100,9 @@ create-slides/
 - `colors` — 名前付きパレット。要素の `color` / `fill` から参照
 - `title` / `author` / `subject` — プレゼンテーションのメタデータ
 - `elements` — そのテンプレートを使うスライドに先に描画される共有要素
+- フッター右のページ番号 — テキストに `{{page}} / {{pages}}` を書くと、描画時に「現在ページ / 総ページ」（1 始まり）へ置換されます。別名: `{{currentPage}}` / `{{totalPages}}`
+
+サンプルの title / content / conclusion / default は、フッター左にデッキ名、右寄せで `1 / 8` 形式のページ番号を置きます。
 
 ### スライド YAML
 
