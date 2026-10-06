@@ -1,0 +1,97 @@
+# Title slide: chrome on the master; `id: title` / `id: subtitle` are slots
+# merged onto each slide (geometry and font live here; slides override text).
+title: RISC-V 入門＆市場動向（2026年10月）
+author: create-slides
+subject: 基礎からSHD予測まで／出典付き
+
+size:
+  width: 13.333
+  height: 7.5
+
+background: "FFFEFA"
+lang: ja-JP
+
+fonts:
+  default: Yu Gothic UI
+  heading: Yu Gothic UI
+
+colors:
+  background: "FFFEFA"
+  text: "1B2430"
+  muted: "5C6B7A"
+  accent: "0B6BCB"
+  navy: "1B365D"
+  accent2: "0F9D58"
+  accent3: "C97800"
+  accent4: "7C3AED"
+  card: "FFFFFF"
+  header: "E8F3FF"
+  footer: "F3F1EA"
+  line: "C5CDD6"
+
+elements:
+  - type: shape
+    shape: rect
+    x: 0
+    y: 0
+    w: 0.16
+    h: 7.5
+    fill: accent
+  - type: shape
+    shape: rect
+    x: 0
+    y: 7.02
+    w: 13.333
+    h: 0.48
+    fill: footer
+  - type: text
+    text: 調査日 2026-10-06
+    x: 0.55
+    y: 7.02
+    w: 10.1
+    h: 0.48
+    fontSize: 16
+    color: muted
+    valign: middle
+    wrap: false
+  - type: shape
+    shape: roundRect
+    x: 0.7
+    y: 3.75
+    w: 0.55
+    h: 0.1
+    fill: accent
+    rectRadius: 0.5
+
+  - id: title
+    type: text
+    x: 0.7
+    y: 2.15
+    w: 11.5
+    h: 1.2
+    fontSize: 40
+    bold: true
+    color: text
+    valign: middle
+    wrap: false
+  - id: subtitle
+    type: text
+    x: 0.7
+    y: 4.05
+    w: 12.0
+    h: 0.5
+    fontSize: 22
+    color: accent
+    wrap: false
+
+pageNumber:
+  x: 10.8
+  y: 7.02
+  w: 2.2
+  h: 0.48
+  fontSize: 18
+  color: muted
+  align: right
+  valign: middle
+  wrap: false
+  text: "{{page}} / {{pages}}"

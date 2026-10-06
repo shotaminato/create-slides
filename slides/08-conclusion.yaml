@@ -1,0 +1,6 @@
+template: conclusion
+notes: まとめ。ラベルは付けない。1行のみ wrap:false。
+
+elements:
+  - id: statement
+    text: 2026年、RISC-VはRVA23実機とAIで成長期へ。ただしオープンISA≠無償シリコン、対Armはこれから。

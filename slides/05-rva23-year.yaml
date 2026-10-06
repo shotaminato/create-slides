@@ -1,0 +1,74 @@
+template: content
+notes: 2026年は RVA23 ハードウェア元年。量産 SoC と OS ベースラインが揃い始めた。サーバーとスマホはまだ弱い。
+
+elements:
+  - id: heading
+    text: 2026年＝RVA23ハードウェア元年
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 0.95
+    w: 6.15
+    h: 2.7
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.12
+    text: "量産 RVA23 SoC\nSpacemiT K3 が出荷（2026-04）。\nUbuntu 26.04 LTS が RVA23 を必須ベースラインにした初の主要 LTS。"
+    fontSize: 18
+    color: text
+    align: left
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 6.75
+    y: 0.95
+    w: 6.15
+    h: 2.7
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.12
+    text: "CUDA on RISC-V\nNVIDIA がホスト対応を表明。\n2026-08、SiFive BigSky 上で CUDA が動作。"
+    fontSize: 18
+    color: text
+    align: left
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 3.85
+    w: 6.15
+    h: 2.85
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.12
+    text: "資金と買収\nQualcomm が Ventana を買収（2025-12）。\nSiFive は評価額約 36.5 億ドル（2026-04）。"
+    fontSize: 18
+    color: text
+    align: left
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 6.75
+    y: 3.85
+    w: 6.15
+    h: 2.85
+    fill: header
+    line:
+      color: accent
+      width: 1.2
+    rectRadius: 0.12
+    text: "まだ弱いところ\nAndroid の NDK ABI は未確定。\n汎用サーバーの量産展開は黎明期。"
+    fontSize: 18
+    color: text
+    align: left
+    valign: middle

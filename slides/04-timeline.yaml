@@ -1,0 +1,260 @@
+template: content
+notes: 2010 年 Berkeley 開始から 2026 年 RVA23 ハードウェア元年までの主要マイルストーン。
+
+elements:
+  - id: heading
+    text: 2010→2026 マイルストーン
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 0.86
+    w: 4.05
+    h: 0.72
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "2010 Berkeley ／ 2015 Foundation"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 4.6
+    y: 0.86
+    w: 4.05
+    h: 0.72
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "2020 RVI ／ 2024 RVA23 批准"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 8.8
+    y: 0.86
+    w: 4.1
+    h: 0.72
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "2026 K3 出荷・Ubuntu 26.04 LTS"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: line
+    x: 0.7
+    y: 4.28
+    w: 11.95
+    h: 0
+    line:
+      color: navy
+      width: 3
+
+  - type: shape
+    shape: roundRect
+    x: 0.45
+    y: 2.05
+    w: 2.35
+    h: 1.55
+    fill: header
+    line:
+      color: accent
+      width: 1.1
+    rectRadius: 0.1
+    text: "2010\nUC Berkeley\n研究開始"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: line
+    x: 1.62
+    y: 3.6
+    w: 0
+    h: 0.68
+    line:
+      color: accent
+      width: 1.5
+
+  - type: shape
+    shape: ellipse
+    x: 1.48
+    y: 4.14
+    w: 0.28
+    h: 0.28
+    fill: accent
+    line:
+      color: navy
+      width: 1.2
+
+  - type: shape
+    shape: ellipse
+    x: 3.82
+    y: 4.14
+    w: 0.28
+    h: 0.28
+    fill: accent2
+    line:
+      color: navy
+      width: 1.2
+
+  - type: shape
+    shape: line
+    x: 3.96
+    y: 4.42
+    w: 0
+    h: 0.42
+    line:
+      color: accent2
+      width: 1.5
+
+  - type: shape
+    shape: roundRect
+    x: 2.85
+    y: 4.9
+    w: 2.35
+    h: 1.55
+    fill: "E7F6EE"
+    line:
+      color: accent2
+      width: 1.1
+    rectRadius: 0.1
+    text: "2015\nRISC-V\nFoundation"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 5.5
+    y: 2.05
+    w: 2.35
+    h: 1.55
+    fill: header
+    line:
+      color: accent
+      width: 1.1
+    rectRadius: 0.1
+    text: "2020\nRVI として\nスイス法人化"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: line
+    x: 6.67
+    y: 3.6
+    w: 0
+    h: 0.68
+    line:
+      color: accent
+      width: 1.5
+
+  - type: shape
+    shape: ellipse
+    x: 6.53
+    y: 4.14
+    w: 0.28
+    h: 0.28
+    fill: accent
+    line:
+      color: navy
+      width: 1.2
+
+  - type: shape
+    shape: ellipse
+    x: 8.92
+    y: 4.14
+    w: 0.28
+    h: 0.28
+    fill: accent3
+    line:
+      color: navy
+      width: 1.2
+
+  - type: shape
+    shape: line
+    x: 9.06
+    y: 4.42
+    w: 0
+    h: 0.42
+    line:
+      color: accent3
+      width: 1.5
+
+  - type: shape
+    shape: roundRect
+    x: 7.85
+    y: 4.9
+    w: 2.45
+    h: 1.55
+    fill: "FFF4E5"
+    line:
+      color: accent3
+      width: 1.1
+    rectRadius: 0.1
+    text: "2024-10\nRVA23\nプロファイル批准"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 10.5
+    y: 2.05
+    w: 2.4
+    h: 1.55
+    fill: "F3EEFF"
+    line:
+      color: accent4
+      width: 1.1
+    rectRadius: 0.1
+    text: "2026\nK3 出荷\nUbuntu 26.04"
+    fontSize: 16
+    color: text
+    align: center
+    valign: middle
+
+  - type: shape
+    shape: line
+    x: 11.7
+    y: 3.6
+    w: 0
+    h: 0.68
+    line:
+      color: accent4
+      width: 1.5
+
+  - type: shape
+    shape: ellipse
+    x: 11.56
+    y: 4.14
+    w: 0.28
+    h: 0.28
+    fill: accent4
+    line:
+      color: navy
+      width: 1.2

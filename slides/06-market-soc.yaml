@@ -1,0 +1,623 @@
+template: content
+notes: SHD Group 2026年版。出荷数と売上は 2024 年まで実績、2025 年以降は予測。売上は RISC-V を含む SoC 全体の金額。棒は出荷／売上、折れ線は普及率。
+
+elements:
+  - id: heading
+    text: RISC-V市場予測（SHD Group 2026）
+    w: 8.4
+    fontSize: 26
+  - id: headingNote
+    text: 実績〜2024 ／ 予測2025〜
+
+  - type: shape
+    shape: roundRect
+    x: 0.4
+    y: 0.82
+    w: 4.05
+    h: 0.72
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.08
+    text: "2031年 出荷 360億個  CAGR 31.7%"
+    fontSize: 15
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 4.6
+    y: 0.82
+    w: 4.05
+    h: 0.72
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.08
+    text: "2031年 売上 3,180億ドル  CAGR 22.5%"
+    fontSize: 15
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 8.8
+    y: 0.82
+    w: 4.1
+    h: 0.72
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.08
+    text: "普及率 約33%（折れ線）"
+    fontSize: 15
+    color: text
+    align: center
+    valign: middle
+    wrap: false
+
+  - type: shape
+    shape: roundRect
+    x: 0.35
+    y: 1.62
+    w: 6.28
+    h: 4.78
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.1
+
+  - type: shape
+    shape: roundRect
+    x: 6.72
+    y: 1.62
+    w: 6.2
+    h: 4.78
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.1
+
+  - type: text
+    text: 出荷数（億個）
+    x: 0.5
+    y: 1.7
+    w: 4.2
+    h: 0.36
+    fontSize: 16
+    bold: true
+    color: navy
+    wrap: false
+
+  - type: text
+    text: 折れ線＝普及率
+    x: 3.7
+    y: 1.7
+    w: 2.7
+    h: 0.36
+    fontSize: 14
+    color: accent3
+    align: right
+    wrap: false
+
+  - type: text
+    text: 売上（10億ドル）
+    x: 6.88
+    y: 1.7
+    w: 4.2
+    h: 0.36
+    fontSize: 16
+    bold: true
+    color: navy
+    wrap: false
+
+  - type: text
+    text: 折れ線＝普及率
+    x: 10.05
+    y: 1.7
+    w: 2.65
+    h: 0.36
+    fontSize: 14
+    color: accent3
+    align: right
+    wrap: false
+
+  - type: shape
+    shape: line
+    x: 0.7
+    y: 5.95
+    w: 5.65
+    h: 0
+    line:
+      color: line
+      width: 1.4
+
+  - type: shape
+    shape: line
+    x: 7.08
+    y: 5.95
+    w: 5.55
+    h: 0
+    line:
+      color: line
+      width: 1.4
+
+  - type: shape
+    shape: rect
+    x: 0.95
+    y: 5.81
+    w: 0.78
+    h: 0.14
+    fill: accent
+  - type: text
+    text: "1.8"
+    x: 0.85
+    y: 5.18
+    w: 0.98
+    h: 0.3
+    fontSize: 14
+    bold: true
+    color: navy
+    align: center
+    wrap: false
+  - type: text
+    text: "’22"
+    x: 0.85
+    y: 6.0
+    w: 0.98
+    h: 0.28
+    fontSize: 14
+    color: muted
+    align: center
+    wrap: false
+
+  - type: shape
+    shape: rect
+    x: 2.1
+    y: 5.6
+    w: 0.78
+    h: 0.35
+    fill: accent
+  - type: text
+    text: "5.0"
+    x: 2.0
+    y: 4.9
+    w: 0.98
+    h: 0.3
+    fontSize: 14
+    bold: true
+    color: navy
+    align: center
+    wrap: false
+  - type: text
+    text: "’24"
+    x: 2.0
+    y: 6.0
+    w: 0.98
+    h: 0.28
+    fontSize: 14
+    color: muted
+    align: center
+    wrap: false
+
+  - type: shape
+    shape: rect
+    x: 3.25
+    y: 5.32
+    w: 0.78
+    h: 0.63
+    fill: header
+  - type: text
+    text: "9.1"
+    x: 3.15
+    y: 4.62
+    w: 0.98
+    h: 0.3
+    fontSize: 14
+    bold: true
+    color: navy
+    align: center
+    wrap: false
+  - type: text
+    text: "’26"
+    x: 3.15
+    y: 6.0
+    w: 0.98
+    h: 0.28
+    fontSize: 14
+    color: muted
+    align: center
+    wrap: false
+
+  - type: shape
+    shape: rect
+    x: 4.4
+    y: 4.96
+    w: 0.78
+    h: 0.99
+    fill: header
+  - type: text
+    text: "14.3"
+    x: 4.3
+    y: 4.4
+    w: 0.98
+    h: 0.3
+    fontSize: 14
+    bold: true
+    color: navy
+    align: center
+    wrap: false
+  - type: text
+    text: "’28"
+    x: 4.3
+    y: 6.0
+    w: 0.98
+    h: 0.28
+    fontSize: 14
+    color: muted
+    align: center
+    wrap: false
+
+  - type: shape
+    shape: rect
+    x: 5.55
+    y: 3.45
+    w: 0.78
+    h: 2.5
+    fill: navy
+  - type: text
+    text: "36.0"
+    x: 5.4
+    y: 3.12
+    w: 1.08
+    h: 0.3
+    fontSize: 14
+    bold: true
+    color: navy
+    align: center
+    wrap: false
+  - type: text
+    text: "’31"
+    x: 5.45
+    y: 6.0
+    w: 0.98
+    h: 0.28
+    fontSize: 14
+    color: muted
+    align: center
+    wrap: false
+
+  - type: shape
+    shape: line
+    x: 1.34
+    y: 5.67
+    w: 1.15
+    h: -0.4
+    line:
+      color: accent3
+      width: 2.2
+  - type: shape
+    shape: line
+    x: 2.49
+    y: 5.27
+    w: 1.15
+    h: -0.28
+    line:
+      color: accent3
+      width: 2.2
+  - type: shape
+    shape: line
+    x: 3.64
+    y: 4.99
+    w: 1.15
+    h: -0.19
+    line:
+      color: accent3
+      width: 2.2
+  - type: shape
+    shape: line
+    x: 4.79
+    y: 4.8
+    w: 1.15
+    h: -0.91
+    line:
+      color: accent3
+      width: 2.2
+
+  - type: shape
+    shape: ellipse
+    x: 1.27
+    y: 5.6
+    w: 0.14
+    h: 0.14
+    fill: accent3
+  - type: shape
+    shape: ellipse
+    x: 2.42
+    y: 5.2
+    w: 0.14
+    h: 0.14
+    fill: accent3
+  - type: shape
+    shape: ellipse
+    x: 3.57
+    y: 4.92
+    w: 0.14
+    h: 0.14
+    fill: accent3
+  - type: shape
+    shape: ellipse
+    x: 4.72
+    y: 4.73
+    w: 0.14
+    h: 0.14
+    fill: accent3
+  - type: shape
+    shape: ellipse
+    x: 5.87
+    y: 3.82
+    w: 0.14
+    h: 0.14
+    fill: accent3
+
+  - type: text
+    text: "33%"
+    x: 5.72
+    y: 3.52
+    w: 0.7
+    h: 0.28
+    fontSize: 14
+    bold: true
+    color: accent3
+    align: left
+    wrap: false
+
+  - type: shape
+    shape: rect
+    x: 7.4
+    y: 5.81
+    w: 0.78
+    h: 0.14
+    fill: accent
+  - type: text
+    text: "14"
+    x: 7.3
+    y: 5.18
+    w: 0.98
+    h: 0.3
+    fontSize: 14
+    bold: true
+    color: navy
+    align: center
+    wrap: false
+  - type: text
+    text: "’22"
+    x: 7.3
+    y: 6.0
+    w: 0.98
+    h: 0.28
+    fontSize: 14
+    color: muted
+    align: center
+    wrap: false
+
+  - type: shape
+    shape: rect
+    x: 8.55
+    y: 5.54
+    w: 0.78
+    h: 0.41
+    fill: accent
+  - type: text
+    text: "52"
+    x: 8.45
+    y: 4.95
+    w: 0.98
+    h: 0.3
+    fontSize: 14
+    bold: true
+    color: navy
+    align: center
+    wrap: false
+  - type: text
+    text: "’24"
+    x: 8.45
+    y: 6.0
+    w: 0.98
+    h: 0.28
+    fontSize: 14
+    color: muted
+    align: center
+    wrap: false
+
+  - type: shape
+    shape: rect
+    x: 9.7
+    y: 5.0
+    w: 0.78
+    h: 0.95
+    fill: header
+  - type: text
+    text: "120"
+    x: 9.6
+    y: 4.68
+    w: 0.98
+    h: 0.3
+    fontSize: 14
+    bold: true
+    color: navy
+    align: center
+    wrap: false
+  - type: text
+    text: "’26"
+    x: 9.6
+    y: 6.0
+    w: 0.98
+    h: 0.28
+    fontSize: 14
+    color: muted
+    align: center
+    wrap: false
+
+  - type: shape
+    shape: rect
+    x: 10.85
+    y: 4.6
+    w: 0.78
+    h: 1.35
+    fill: header
+  - type: text
+    text: "172"
+    x: 10.75
+    y: 4.28
+    w: 0.98
+    h: 0.3
+    fontSize: 14
+    bold: true
+    color: navy
+    align: center
+    wrap: false
+  - type: text
+    text: "’28"
+    x: 10.75
+    y: 6.0
+    w: 0.98
+    h: 0.28
+    fontSize: 14
+    color: muted
+    align: center
+    wrap: false
+
+  - type: shape
+    shape: rect
+    x: 12.0
+    y: 3.45
+    w: 0.78
+    h: 2.5
+    fill: navy
+  - type: text
+    text: "318"
+    x: 11.85
+    y: 3.12
+    w: 1.08
+    h: 0.3
+    fontSize: 14
+    bold: true
+    color: navy
+    align: center
+    wrap: false
+  - type: text
+    text: "’31"
+    x: 11.9
+    y: 6.0
+    w: 0.98
+    h: 0.28
+    fontSize: 14
+    color: muted
+    align: center
+    wrap: false
+
+  - type: shape
+    shape: line
+    x: 7.79
+    y: 5.71
+    w: 1.15
+    h: -0.3
+    line:
+      color: accent3
+      width: 2.2
+  - type: shape
+    shape: line
+    x: 8.94
+    y: 5.41
+    w: 1.15
+    h: -0.39
+    line:
+      color: accent3
+      width: 2.2
+  - type: shape
+    shape: line
+    x: 10.09
+    y: 5.02
+    w: 1.15
+    h: -0.25
+    line:
+      color: accent3
+      width: 2.2
+  - type: shape
+    shape: line
+    x: 11.24
+    y: 4.77
+    w: 1.15
+    h: -0.89
+    line:
+      color: accent3
+      width: 2.2
+
+  - type: shape
+    shape: ellipse
+    x: 7.72
+    y: 5.64
+    w: 0.14
+    h: 0.14
+    fill: accent3
+  - type: shape
+    shape: ellipse
+    x: 8.87
+    y: 5.34
+    w: 0.14
+    h: 0.14
+    fill: accent3
+  - type: shape
+    shape: ellipse
+    x: 10.02
+    y: 4.95
+    w: 0.14
+    h: 0.14
+    fill: accent3
+  - type: shape
+    shape: ellipse
+    x: 11.17
+    y: 4.7
+    w: 0.14
+    h: 0.14
+    fill: accent3
+  - type: shape
+    shape: ellipse
+    x: 12.32
+    y: 3.81
+    w: 0.14
+    h: 0.14
+    fill: accent3
+
+  - type: text
+    text: "33%"
+    x: 12.05
+    y: 3.48
+    w: 0.8
+    h: 0.28
+    fontSize: 14
+    bold: true
+    color: accent3
+    align: left
+    wrap: false
+
+  - type: text
+    text: SHD102-26 Abridged, April 2026, Tables 13–14（公開数値から作図。濃色＝2031）
+    x: 0.45
+    y: 6.5
+    w: 12.4
+    h: 0.4
+    fontSize: 15
+    color: muted
+    valign: middle
+    wrap: false
