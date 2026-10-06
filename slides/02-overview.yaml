@@ -5,10 +5,10 @@ elements:
   - type: text
     text: RISC-V とは
     x: 0.45
-    y: 0.05
+    y: 0.04
     w: 12.4
-    h: 0.54
-    fontSize: 26
+    h: 0.64
+    fontSize: 32
     bold: true
     color: text
     valign: middle
@@ -16,10 +16,10 @@ elements:
   - type: text
     text: "命令セットアーキテクチャ（ISA）のオープン標準です。2010 年に UC Berkeley で始まり、仕様は RISC-V International が維持しています。"
     x: 0.5
-    y: 0.9
+    y: 0.88
     w: 12.3
-    h: 0.7
-    fontSize: 16
+    h: 0.82
+    fontSize: 20
     color: text
 
   - type: shape
@@ -39,8 +39,8 @@ elements:
     x: 0.7
     y: 2.0
     w: 3.5
-    h: 0.4
-    fontSize: 16
+    h: 0.48
+    fontSize: 20
     bold: true
     color: accent
 
@@ -50,7 +50,7 @@ elements:
     y: 2.5
     w: 3.5
     h: 3.9
-    fontSize: 16
+    fontSize: 20
     color: text
     valign: top
 
@@ -71,8 +71,8 @@ elements:
     x: 4.9
     y: 2.0
     w: 3.5
-    h: 0.4
-    fontSize: 16
+    h: 0.48
+    fontSize: 20
     bold: true
     color: accent
 
@@ -82,7 +82,7 @@ elements:
     y: 2.5
     w: 3.5
     h: 3.9
-    fontSize: 16
+    fontSize: 20
     color: text
     valign: top
 
@@ -103,8 +103,8 @@ elements:
     x: 9.1
     y: 2.0
     w: 3.5
-    h: 0.4
-    fontSize: 16
+    h: 0.48
+    fontSize: 20
     bold: true
     color: accent
 
@@ -114,6 +114,6 @@ elements:
     y: 2.5
     w: 3.5
     h: 3.9
-    fontSize: 16
+    fontSize: 20
     color: text
     valign: top

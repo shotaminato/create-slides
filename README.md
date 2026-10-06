@@ -115,7 +115,7 @@ elements:
     y: 0.06
     w: 12.4
     h: 0.5
-    fontSize: 26
+    fontSize: 32
     bold: true
     color: text
 ```
@@ -256,7 +256,7 @@ npm run build-slides -- --slides slides --template templates/default.yaml --out 
 
 成功すると `dist/deck.pptx` ができます（`dist/` は `.gitignore` 対象です）。同じコマンドで生成したサンプルを `examples/sample-deck.pptx` に同梱しています。
 
-本文の見出しは content テンプレートのヘッダー帯の上に、各 YAML で置いてください（例: `y: 0.06`, `h: 0.5`）。
+本文の見出しは content テンプレートのヘッダー帯の上に、各 YAML で置いてください（例: `y: 0.04`, `h: 0.64`, `fontSize: 32`）。サンプルの本文・ラベルは 20pt、フッターは 18pt、表紙見出しは 52pt です。
 
 ## 開発 / Development
 

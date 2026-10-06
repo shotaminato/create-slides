@@ -5,10 +5,10 @@ elements:
   - type: text
     text: 特権レベル
     x: 0.45
-    y: 0.05
+    y: 0.04
     w: 12.4
-    h: 0.54
-    fontSize: 26
+    h: 0.64
+    fontSize: 32
     bold: true
     color: text
     valign: middle
@@ -24,7 +24,7 @@ elements:
       color: accent
       width: 1.2
     text: "U-mode    ユーザー（アプリケーション）"
-    fontSize: 16
+    fontSize: 20
     bold: true
     color: text
 
@@ -47,7 +47,7 @@ elements:
       color: accent2
       width: 1.2
     text: "S-mode    スーパーバイザ（Linux など）"
-    fontSize: 16
+    fontSize: 20
     bold: true
     color: text
 
@@ -70,7 +70,7 @@ elements:
       color: accent3
       width: 1.2
     text: "M-mode    マシン（ファームウェア、必須）"
-    fontSize: 16
+    fontSize: 20
     bold: true
     color: text
 
@@ -91,8 +91,8 @@ elements:
     x: 8.45
     y: 1.15
     w: 4.15
-    h: 0.4
-    fontSize: 16
+    h: 0.5
+    fontSize: 20
     bold: true
     color: accent
 
@@ -102,5 +102,5 @@ elements:
     y: 1.65
     w: 4.15
     h: 4.9
-    fontSize: 16
+    fontSize: 20
     color: text

@@ -5,10 +5,10 @@ elements:
   - type: text
     text: 設計思想
     x: 0.45
-    y: 0.05
+    y: 0.04
     w: 12.4
-    h: 0.54
-    fontSize: 26
+    h: 0.64
+    fontSize: 32
     bold: true
     color: text
     valign: middle
@@ -25,7 +25,7 @@ elements:
       width: 1.1
     rectRadius: 0.1
     text: "シンプル\n遅延スロットや条件コードを ISA に載せない。直交した命令と少ない形式。"
-    fontSize: 16
+    fontSize: 20
     color: text
     align: left
     valign: top
@@ -42,7 +42,7 @@ elements:
       width: 1.1
     rectRadius: 0.1
     text: "モジュール\n必要な拡張だけを実装する。組み込みは小さく、応用は RV64GC などから広げられる。"
-    fontSize: 16
+    fontSize: 20
     color: text
     align: left
     valign: top
@@ -59,7 +59,7 @@ elements:
       width: 1.1
     rectRadius: 0.1
     text: "安定\n批准済みのベース ISA は凍結する。既存のソフトウェアを壊す変更を入れない。"
-    fontSize: 16
+    fontSize: 20
     color: text
     align: left
     valign: top
@@ -76,7 +76,7 @@ elements:
       width: 1.1
     rectRadius: 0.1
     text: "実装の自由\nパイプラインやキャッシュの形は ISA が縛りすぎない。ASIC でも FPGA でも同じ命令セット。"
-    fontSize: 16
+    fontSize: 20
     color: text
     align: left
     valign: top

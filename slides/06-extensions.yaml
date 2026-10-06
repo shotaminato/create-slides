@@ -5,10 +5,10 @@ elements:
   - type: text
     text: 標準拡張
     x: 0.45
-    y: 0.05
+    y: 0.04
     w: 12.4
-    h: 0.54
-    fontSize: 26
+    h: 0.64
+    fontSize: 32
     bold: true
     color: text
     valign: middle
@@ -22,7 +22,7 @@ elements:
     fill: accent
     rectRadius: 0.12
     text: ベース I
-    fontSize: 18
+    fontSize: 22
     bold: true
     color: "FFFFFF"
 
@@ -36,11 +36,11 @@ elements:
 
   - type: text
     text: 必要なものだけを足す
-    x: 3.55
+    x: 3.35
     y: 1.95
-    w: 1.7
-    h: 0.55
-    fontSize: 14
+    w: 2.15
+    h: 0.7
+    fontSize: 18
     color: muted
     align: center
 
@@ -55,7 +55,7 @@ elements:
       color: accent2
       width: 1.4
     text: M
-    fontSize: 18
+    fontSize: 22
     bold: true
     color: accent2
 
@@ -70,7 +70,7 @@ elements:
       color: accent
       width: 1.4
     text: A
-    fontSize: 18
+    fontSize: 22
     bold: true
     color: accent
 
@@ -85,7 +85,7 @@ elements:
       color: accent3
       width: 1.4
     text: F/D
-    fontSize: 16
+    fontSize: 20
     bold: true
     color: accent3
 
@@ -100,7 +100,7 @@ elements:
       color: accent4
       width: 1.4
     text: C
-    fontSize: 18
+    fontSize: 22
     bold: true
     color: accent4
 
@@ -115,7 +115,7 @@ elements:
       color: accent
       width: 1.4
     text: V
-    fontSize: 18
+    fontSize: 22
     bold: true
     color: accent
 
@@ -130,7 +130,7 @@ elements:
       color: line
       width: 1.1
     text: "M  整数の乗算・除算\nA  アトミック（A 拡張）\nF  単精度浮動小数点\nD  倍精度浮動小数点"
-    fontSize: 16
+    fontSize: 20
     color: text
     align: left
     valign: top
@@ -146,7 +146,7 @@ elements:
       color: line
       width: 1.1
     text: "C  16 ビット圧縮符号化\nV  ベクトル（批准済み）\nZicsr / Zifencei  など\nB  ビット操作 ほか"
-    fontSize: 16
+    fontSize: 20
     color: text
     align: left
     valign: top
@@ -163,7 +163,7 @@ elements:
       width: 1.25
     rectRadius: 0.1
     text: "G = IMAFD\n\n汎用の出発点は\nRV64GC が多い\n（I+MAFD+C）"
-    fontSize: 16
+    fontSize: 20
     bold: true
     color: text
     align: left
