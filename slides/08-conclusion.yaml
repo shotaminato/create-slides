@@ -8,7 +8,7 @@ elements:
     y: 0.85
     w: 11.8
     h: 0.7
-    fontSize: 32
+    fontSize: 36
     bold: true
     color: text
 
@@ -33,7 +33,7 @@ elements:
       width: 1
     rectRadius: 0.08
     text: "オープン標準。仕様にロイヤリティは不要です。"
-    fontSize: 16
+    fontSize: 18
     color: text
     align: left
 
@@ -49,7 +49,7 @@ elements:
       width: 1
     rectRadius: 0.08
     text: "ベース ISA を小さく凍結し、機能は M / A / F / D / C / V などの拡張で足します。"
-    fontSize: 16
+    fontSize: 18
     color: text
     align: left
 
@@ -65,7 +65,7 @@ elements:
       width: 1
     rectRadius: 0.08
     text: "汎用の出発点は RV64GC。特権は M（必須）に加え、OS 向けに S と U を載せます。"
-    fontSize: 16
+    fontSize: 18
     color: text
     align: left
 
@@ -75,7 +75,7 @@ elements:
     y: 5.25
     w: 11.9
     h: 0.7
-    fontSize: 22
+    fontSize: 26
     bold: true
     color: accent
     valign: middle

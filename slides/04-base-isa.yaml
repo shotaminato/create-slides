@@ -5,10 +5,10 @@ elements:
   - type: text
     text: ベース整数 ISA
     x: 0.45
-    y: 0.06
+    y: 0.05
     w: 12.4
-    h: 0.5
-    fontSize: 22
+    h: 0.54
+    fontSize: 26
     bold: true
     color: text
     valign: middle
@@ -19,7 +19,7 @@ elements:
     y: 0.85
     w: 12.3
     h: 0.55
-    fontSize: 15
+    fontSize: 16
     color: text
 
   - type: shape
@@ -92,7 +92,7 @@ elements:
     y: 5.35
     w: 2.3
     h: 1.5
-    fontSize: 13
+    fontSize: 16
     color: muted
 
   - type: shape
@@ -123,7 +123,7 @@ elements:
       color: "#C97800AA"
       width: 1.6
     text: "半透明\nF/D の fp"
-    fontSize: 13
+    fontSize: 16
     bold: true
     color: text
 
@@ -133,5 +133,5 @@ elements:
     y: 5.25
     w: 9.65
     h: 1.55
-    fontSize: 14
+    fontSize: 16
     color: muted

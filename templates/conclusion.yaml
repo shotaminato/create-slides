@@ -38,23 +38,23 @@ elements:
   - type: shape
     shape: rect
     x: 0
-    y: 7.18
+    y: 7.12
     w: 13.333
-    h: 0.32
+    h: 0.38
     fill: footer
   - type: shape
     shape: rect
     x: 0
-    y: 7.12
+    y: 7.06
     w: 13.333
     h: 0.06
     fill: accent
   - type: text
     text: RISC-V 入門  ·  まとめ
     x: 0.45
-    y: 7.18
+    y: 7.12
     w: 12.4
-    h: 0.32
-    fontSize: 11
+    h: 0.38
+    fontSize: 14
     color: muted
     valign: middle

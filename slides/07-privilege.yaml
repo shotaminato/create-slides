@@ -5,10 +5,10 @@ elements:
   - type: text
     text: 特権レベル
     x: 0.45
-    y: 0.06
+    y: 0.05
     w: 12.4
-    h: 0.5
-    fontSize: 22
+    h: 0.54
+    fontSize: 26
     bold: true
     color: text
     valign: middle
@@ -102,5 +102,5 @@ elements:
     y: 1.65
     w: 4.15
     h: 4.9
-    fontSize: 14
+    fontSize: 16
     color: text

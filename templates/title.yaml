@@ -38,16 +38,16 @@ elements:
   - type: shape
     shape: rect
     x: 0
-    y: 7.18
+    y: 7.12
     w: 13.333
-    h: 0.32
+    h: 0.38
     fill: footer
   - type: text
     text: RISC-V 入門  ·  オープン ISA
     x: 0.55
-    y: 7.18
+    y: 7.12
     w: 12.3
-    h: 0.32
-    fontSize: 11
+    h: 0.38
+    fontSize: 14
     color: muted
     valign: middle

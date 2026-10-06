@@ -5,10 +5,10 @@ elements:
   - type: text
     text: RISC-V とは
     x: 0.45
-    y: 0.06
+    y: 0.05
     w: 12.4
-    h: 0.5
-    fontSize: 22
+    h: 0.54
+    fontSize: 26
     bold: true
     color: text
     valign: middle
@@ -50,7 +50,7 @@ elements:
     y: 2.5
     w: 3.5
     h: 3.9
-    fontSize: 14
+    fontSize: 16
     color: text
     valign: top
 
@@ -82,7 +82,7 @@ elements:
     y: 2.5
     w: 3.5
     h: 3.9
-    fontSize: 14
+    fontSize: 16
     color: text
     valign: top
 
@@ -114,6 +114,6 @@ elements:
     y: 2.5
     w: 3.5
     h: 3.9
-    fontSize: 14
+    fontSize: 16
     color: text
     valign: top

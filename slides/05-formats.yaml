@@ -5,10 +5,10 @@ elements:
   - type: text
     text: 命令フォーマット
     x: 0.45
-    y: 0.06
+    y: 0.05
     w: 12.4
-    h: 0.5
-    fontSize: 22
+    h: 0.54
+    fontSize: 26
     bold: true
     color: text
     valign: middle
@@ -19,7 +19,7 @@ elements:
     y: 0.82
     w: 12.3
     h: 0.45
-    fontSize: 15
+    fontSize: 16
     color: text
 
   - type: shape
@@ -30,7 +30,7 @@ elements:
     h: 0.7
     fill: accent
     text: opcode
-    fontSize: 13
+    fontSize: 16
     bold: true
     color: "FFFFFF"
 
@@ -42,7 +42,7 @@ elements:
     h: 0.7
     fill: "3D8BD8"
     text: rd
-    fontSize: 13
+    fontSize: 16
     bold: true
     color: "FFFFFF"
 
@@ -54,7 +54,7 @@ elements:
     h: 0.7
     fill: "5AA0E0"
     text: funct3
-    fontSize: 13
+    fontSize: 16
     bold: true
     color: "FFFFFF"
 
@@ -66,7 +66,7 @@ elements:
     h: 0.7
     fill: "3D8BD8"
     text: rs1
-    fontSize: 13
+    fontSize: 16
     bold: true
     color: "FFFFFF"
 
@@ -78,7 +78,7 @@ elements:
     h: 0.7
     fill: "3D8BD8"
     text: rs2
-    fontSize: 13
+    fontSize: 16
     bold: true
     color: "FFFFFF"
 
@@ -90,7 +90,7 @@ elements:
     h: 0.7
     fill: accent4
     text: funct7 / imm
-    fontSize: 13
+    fontSize: 16
     bold: true
     color: "FFFFFF"
 
@@ -108,7 +108,7 @@ elements:
     y: 2.22
     w: 5.2
     h: 0.45
-    fontSize: 13
+    fontSize: 16
     color: accent3
     align: right
     valign: middle
@@ -125,7 +125,7 @@ elements:
       width: 1
     rectRadius: 0.1
     text: "R  レジスタ演算\nadd, sub, and, or, xor"
-    fontSize: 14
+    fontSize: 16
     color: text
     align: left
     valign: top
@@ -142,7 +142,7 @@ elements:
       width: 1
     rectRadius: 0.1
     text: "I  即値・ロード\naddi, lw, jalr, シフト"
-    fontSize: 14
+    fontSize: 16
     color: text
     align: left
     valign: top
@@ -159,7 +159,7 @@ elements:
       width: 1
     rectRadius: 0.1
     text: "S  ストア\nsw, sh, sb"
-    fontSize: 14
+    fontSize: 16
     color: text
     align: left
     valign: top
@@ -176,7 +176,7 @@ elements:
       width: 1
     rectRadius: 0.1
     text: "B  条件分岐\nbeq, bne, blt, bge"
-    fontSize: 14
+    fontSize: 16
     color: text
     align: left
     valign: top
@@ -193,7 +193,7 @@ elements:
       width: 1
     rectRadius: 0.1
     text: "U  上位即値\nlui, auipc"
-    fontSize: 14
+    fontSize: 16
     color: text
     align: left
     valign: top
@@ -210,7 +210,7 @@ elements:
       width: 1
     rectRadius: 0.1
     text: "J  ジャンプ\njal"
-    fontSize: 14
+    fontSize: 16
     color: text
     align: left
     valign: top

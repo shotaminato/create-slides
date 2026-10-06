@@ -112,7 +112,7 @@ elements:
     y: 0.06
     w: 12.4
     h: 0.5
-    fontSize: 22
+    fontSize: 26
     bold: true
     color: text
 ```

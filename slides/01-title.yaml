@@ -16,7 +16,7 @@ elements:
     y: 1.95
     w: 10.5
     h: 0.7
-    fontSize: 40
+    fontSize: 44
     bold: true
     color: text
     valign: middle
@@ -27,7 +27,7 @@ elements:
     y: 2.65
     w: 10.5
     h: 0.45
-    fontSize: 20
+    fontSize: 22
     color: muted
 
   - type: shape
@@ -45,5 +45,5 @@ elements:
     y: 3.55
     w: 10.5
     h: 0.4
-    fontSize: 16
+    fontSize: 18
     color: accent
