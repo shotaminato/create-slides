@@ -41,7 +41,17 @@ const ALIASES: Record<string, string> = {
   notchedrightarrow: "notchedRightArrow",
   stripedrightarrow: "stripedRightArrow",
   chevron: "chevron",
+
+  // pptxgenjs ShapeType.triangle is an isosceles triangle.
+  // There is no ShapeType named isoscelesTriangle; the legacy enum is ISOSCELES_TRIANGLE = "triangle".
   triangle: "triangle",
+  isosceles: "triangle",
+  isoscelestriangle: "triangle",
+
+  // Right triangle (pptxgenjs ShapeType.rtTriangle / legacy RIGHT_TRIANGLE)
+  rttriangle: "rtTriangle",
+  righttriangle: "rtTriangle",
+
   diamond: "diamond",
 };
 
@@ -113,6 +123,8 @@ export function resolveShapeName(name: string): ResolvedShape {
     "lineDoubleArrow",
     "rightArrow / leftArrow / upArrow / downArrow",
     "leftRightArrow / upDownArrow",
+    "triangle / isoscelesTriangle",
+    "rtTriangle / rightTriangle",
   ].join(", ");
 
   throw new SlideConfigError(

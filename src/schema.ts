@@ -97,6 +97,7 @@ export const imageElementSchema = box.extend({
 
 export const shapeElementSchema = box.merge(textStyle).extend({
   type: z.literal("shape"),
+  /** Friendly alias (rect, triangle, isoscelesTriangle, …) or a pptxgenjs ShapeType name. */
   shape: z.string().min(1),
   fill: fillSchema.optional(),
   line: lineSchema.optional(),

@@ -171,10 +171,13 @@ elements:
 | `notchedRightArrow` | `notchedRightArrow` |
 | `stripedRightArrow` | `stripedRightArrow` |
 | `chevron` | `chevron` |
-| `triangle` | `triangle` |
+| `triangle`, `isosceles`, `isoscelesTriangle` | `triangle`（二等辺三角形） |
+| `rtTriangle`, `rightTriangle` | `rtTriangle`（直角三角形） |
 | `diamond` | `diamond` |
 
 上記以外でも、[pptxgenjs `ShapeType`](https://github.com/gitbrent/PptxGenJS/blob/master/src/core-enums.ts) に存在する名前（`hexagon`, `star5`, `flowChartDecision` など）はそのまま使えます。存在しない名前はエラーになります。
+
+三角形: pptxgenjs の公式名は `triangle`（二等辺）と `rtTriangle`（直角）です。`isoscelesTriangle` という ShapeType はなく、旧 enum `ISOSCELES_TRIANGLE` が `triangle` に対応します。
 
 ライン矢印は `shape: line` に `line.endArrowType: arrow` を付けるか、`lineArrow` エイリアスを使います。ブロック矢印は `rightArrow` 系の ShapeType です。
 
@@ -184,7 +187,7 @@ elements:
 
 - `templates/default.yaml` — ワイドスクリーン、色、フッター
 - `slides/01-title.yaml` — テキスト + 画像
-- `slides/02-shapes.yaml` — rect / roundRect / ellipse / 矢印
+- `slides/02-shapes.yaml` — rect / roundRect / ellipse / triangle / 矢印
 - `assets/logo.png`
 
 生成:

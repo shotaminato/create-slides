@@ -41,7 +41,7 @@ elements:
     rectRadius: 0.5
 
   - type: text
-    text: "text · image · rect · roundRect · ellipse · arrows"
+    text: "text · image · rect · roundRect · ellipse · triangle · arrows"
     x: 0.7
     y: 4.3
     w: 12
