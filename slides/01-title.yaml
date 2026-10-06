@@ -1,31 +1,30 @@
-template: default
-title: create-slides demo
-notes: Title slide — text, image, and shared template chrome.
+template: title
+notes: 表紙。RISC-V は UC Berkeley 発のオープン ISA。
 
 elements:
   - type: image
     src: assets/logo.png
     x: 0.7
-    y: 2.15
-    w: 1.15
-    h: 1.15
+    y: 2.05
+    w: 1.05
+    h: 1.05
     altText: create-slides logo
 
   - type: text
-    text: create-slides
-    x: 2.1
-    y: 2.15
+    text: RISC-V 入門
+    x: 2.0
+    y: 1.95
     w: 10.5
     h: 0.7
-    fontSize: 44
+    fontSize: 40
     bold: true
     color: text
     valign: middle
 
   - type: text
-    text: YAML の設定から PowerPoint を生成する
-    x: 2.1
-    y: 2.85
+    text: オープンな命令セットアーキテクチャ
+    x: 2.0
+    y: 2.65
     w: 10.5
     h: 0.45
     fontSize: 20
@@ -33,18 +32,18 @@ elements:
 
   - type: shape
     shape: roundRect
-    x: 0.7
-    y: 4.0
+    x: 2.0
+    y: 3.3
     w: 0.55
-    h: 0.12
+    h: 0.1
     fill: accent
     rectRadius: 0.5
 
   - type: text
-    text: "text · image · rect · roundRect · ellipse · triangle · arrows"
-    x: 0.7
-    y: 4.3
-    w: 12
+    text: 基本 ISA  ·  標準拡張  ·  特権レベル
+    x: 2.0
+    y: 3.55
+    w: 10.5
     h: 0.4
     fontSize: 16
     color: accent

@@ -1,0 +1,106 @@
+template: content
+notes: M-mode は必須。Unix 系 OS は S-mode + U-mode。ハイパーバイザは H 拡張。
+
+elements:
+  - type: text
+    text: 特権レベル
+    x: 0.45
+    y: 0.06
+    w: 12.4
+    h: 0.5
+    fontSize: 22
+    bold: true
+    color: text
+    valign: middle
+
+  - type: shape
+    shape: rect
+    x: 0.5
+    y: 0.95
+    w: 7.4
+    h: 1.55
+    fill: "D9ECFF"
+    line:
+      color: accent
+      width: 1.2
+    text: "U-mode    ユーザー（アプリケーション）"
+    fontSize: 16
+    bold: true
+    color: text
+
+  - type: shape
+    shape: downArrow
+    x: 3.85
+    y: 2.55
+    w: 0.7
+    h: 0.55
+    fill: accent
+
+  - type: shape
+    shape: rect
+    x: 0.5
+    y: 3.15
+    w: 7.4
+    h: 1.55
+    fill: "C8E6D4"
+    line:
+      color: accent2
+      width: 1.2
+    text: "S-mode    スーパーバイザ（Linux など）"
+    fontSize: 16
+    bold: true
+    color: text
+
+  - type: shape
+    shape: downArrow
+    x: 3.85
+    y: 4.75
+    w: 0.7
+    h: 0.55
+    fill: accent2
+
+  - type: shape
+    shape: rect
+    x: 0.5
+    y: 5.35
+    w: 7.4
+    h: 1.5
+    fill: "FFE4C2"
+    line:
+      color: accent3
+      width: 1.2
+    text: "M-mode    マシン（ファームウェア、必須）"
+    fontSize: 16
+    bold: true
+    color: text
+
+  - type: shape
+    shape: roundRect
+    x: 8.2
+    y: 0.95
+    w: 4.6
+    h: 5.9
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+
+  - type: text
+    text: "要点"
+    x: 8.45
+    y: 1.15
+    w: 4.15
+    h: 0.4
+    fontSize: 16
+    bold: true
+    color: accent
+
+  - type: text
+    text: "M-mode はすべての実装に必要です。\n\nUnix 系 OS は S-mode と U-mode を載せます。\n\n仮想化は Hypervisor（H）拡張です。\n\nトラップはより高い特権へ渡り、mret / sret で戻ります。"
+    x: 8.45
+    y: 1.65
+    w: 4.15
+    h: 4.9
+    fontSize: 14
+    color: text

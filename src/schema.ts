@@ -70,6 +70,7 @@ const textStyle = z.object({
   italic: z.boolean().optional(),
   underline: z.boolean().optional(),
   margin: z.number().optional(),
+  lang: z.string().optional(),
 });
 
 export const textElementSchema = box.merge(textStyle).extend({
@@ -131,6 +132,7 @@ export const themeFieldsSchema = z.object({
   title: z.string().optional(),
   author: z.string().optional(),
   subject: z.string().optional(),
+  lang: z.string().optional(),
   elements: z.array(elementSchema).optional(),
 });
 
@@ -160,6 +162,7 @@ export interface ResolvedSlide {
   title?: string;
   author?: string;
   subject?: string;
+  lang?: string;
   notes?: string;
   elements: SlideElement[];
 }

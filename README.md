@@ -44,7 +44,7 @@ npx tsx src/cli.ts --slides slides --template templates/default.yaml --out dist/
 | `--out <file>` | `dist/deck.pptx` | 出力 `.pptx` |
 | `--root <dir>` | cwd（`package.json` を上方向に探索） | プロジェクトルート。画像パスの基準 |
 
-スライドの読み込み順は **ファイル名のソート順** です（`01-title.yaml`, `02-shapes.yaml`, …）。
+スライドの読み込み順は **ファイル名のソート順** です（`01-title.yaml`, `02-overview.yaml`, …）。
 
 存在しないファイル、壊れた YAML、スキーマ違反、欠けている画像は、パス付きのエラーで終了します。
 
@@ -53,10 +53,15 @@ npx tsx src/cli.ts --slides slides --template templates/default.yaml --out dist/
 ```
 create-slides/
   templates/
-    default.yaml
+    default.yaml      # 共通の色・フォント（フォールバック）
+    title.yaml        # 表紙
+    content.yaml      # 本文
+    conclusion.yaml   # まとめ / クロージング
   slides/
     01-title.yaml
-    02-shapes.yaml
+    02-overview.yaml
+    …
+    08-conclusion.yaml
   assets/
     logo.png
   examples/
@@ -75,41 +80,50 @@ create-slides/
 
 ## 設定モデル / Config model
 
-### テンプレート (`templates/default.yaml`)
+### テンプレート
 
-既定値を定義します。
+既定フォントは **Yu Gothic UI**（`fontFace` も同じ文字列）、背景は白〜クリームの明るい色です。
+
+| ファイル | `template:` | 用途 |
+| --- | --- | --- |
+| `templates/default.yaml` | `default` | サイズ・パレット・フッター。CLI の `--template` 既定 |
+| `templates/title.yaml` | `title` | 表紙（左アクセント＋フッター） |
+| `templates/content.yaml` | `content` | 本文（ヘッダー帯＋フッター）。見出しは各スライド側 |
+| `templates/conclusion.yaml` | `conclusion` | まとめ |
+
+各テンプレートで定義できる主な項目:
 
 - `size.width` / `size.height` — インチ。未指定時はワイドスクリーン **13.333 × 7.5**
-- `background` — スライド背景色（`#RRGGBB` またはパレット名）
-- `fonts.default` / `fonts.heading`
-- `colors` — 名前付きパレット。要素の `color` / `fill` から参照できる
+- `background` — スライド背景色
+- `fonts.default` / `fonts.heading` — 既定は `Yu Gothic UI`
+- `lang` — テキストの言語タグ（サンプルは `ja-JP`）
+- `colors` — 名前付きパレット。要素の `color` / `fill` から参照
 - `title` / `author` / `subject` — プレゼンテーションのメタデータ
-- `elements` — 全スライドに先に描画される共有要素（フッターなど）
+- `elements` — そのテンプレートを使うスライドに先に描画される共有要素
 
 ### スライド YAML
 
 ```yaml
-template: default   # または other / templates/other.yaml
-background: "0F172A"
+template: content   # title / content / conclusion / default、またはパス
 elements:
   - type: text
-    text: Hello
-    x: 0.5
-    y: 1
-    w: 12
-    h: 1
-    fontSize: 32
+    text: 見出し
+    x: 0.45
+    y: 0.06
+    w: 12.4
+    h: 0.5
+    fontSize: 22
+    bold: true
     color: text
-    align: center
 ```
 
 - `template: default` は CLI の `--template` を使います
-- 名前だけ (`theme`) なら `templates/theme.yaml` を探します
+- 名前だけ (`content`) なら `templates/content.yaml` を探します
 - パス (`templates/foo.yaml`) はプロジェクトルートからの相対です
 - **スライド側の値がテンプレートを上書き**します（`size` / `background` / `fonts` / `colors`）
 - `elements` は **テンプレート要素 + スライド要素**（テンプレートが下、スライドが上）
 
-色は `#38BDF8` / `38BDF8` / パレット名（`accent`）のいずれでも指定できます。座標 `x,y,w,h` の単位はインチです（pptxgenjs のパーセント文字列 `"50%"` も可）。
+色は `#0B6BCB` / `0B6BCB` / パレット名（`accent`）のいずれでも指定できます。座標 `x,y,w,h` の単位はインチです（pptxgenjs のパーセント文字列 `"50%"` も可）。
 
 ### `type: text`
 
@@ -118,13 +132,14 @@ elements:
 | `text` | 文字列（`\n` で改行） |
 | `x,y,w,h` | 位置とサイズ |
 | `fontSize` | pt |
-| `fontFace` | 未指定時はテンプレートの `fonts` |
+| `fontFace` | 未指定時はテンプレートの `fonts`（既定 `Yu Gothic UI`） |
 | `color` | 文字色 |
 | `align` | `left` / `center` / `right` / `justify` |
 | `valign` | `top` / `middle` / `bottom` |
 | `bold` / `italic` / `underline` | boolean |
 | `fill` | テキストボックス背景 |
 | `margin` | 余白 |
+| `lang` | 未指定時はテンプレートの `lang` |
 
 ### `type: image`
 
@@ -146,7 +161,7 @@ elements:
 | `text` | 図形内テキスト（pptxgenjs の `addText` + `shape`） |
 | `rectRadius` | `roundRect` の丸み（0–1） |
 | `rotate` / `flipH` / `flipV` | 任意 |
-| テキスト系 | `fontSize`, `color`, `align`, `valign`, `bold` など |
+| テキスト系 | `fontSize`, `color`, `align`, `valign`, `bold`, `lang` など |
 
 `line.beginArrowType` / `endArrowType` は `none` / `arrow` / `diamond` / `oval` / `stealth` / `triangle` です。
 
@@ -183,12 +198,18 @@ elements:
 
 ## サンプル / Sample
 
-同梱データ:
+同梱のサンプルは、表紙 → 本文複数枚 → まとめ、の RISC-V 解説デッキ（日本語）です。本文図に rect / roundRect / ellipse / 矢印 / triangle を使っています。
 
-- `templates/default.yaml` — ワイドスクリーン、色、フッター
-- `slides/01-title.yaml` — テキスト + 画像
-- `slides/02-shapes.yaml` — rect / roundRect / ellipse / triangle / 矢印
-- `assets/logo.png`
+| スライド | テンプレート | 内容 |
+| --- | --- | --- |
+| `01-title.yaml` | `title` | 表紙 |
+| `02-overview.yaml` | `content` | RISC-V とは |
+| `03-principles.yaml` | `content` | 設計思想 |
+| `04-base-isa.yaml` | `content` | ベース整数 ISA とレジスタ |
+| `05-formats.yaml` | `content` | 命令フォーマット |
+| `06-extensions.yaml` | `content` | 標準拡張 |
+| `07-privilege.yaml` | `content` | 特権レベル |
+| `08-conclusion.yaml` | `conclusion` | まとめ |
 
 生成:
 
@@ -198,6 +219,8 @@ npm run build-slides -- --slides slides --template templates/default.yaml --out 
 ```
 
 成功すると `dist/deck.pptx` ができます（`dist/` は `.gitignore` 対象です）。同じコマンドで生成したサンプルを `examples/sample-deck.pptx` に同梱しています。
+
+本文の見出しは content テンプレートのヘッダー帯の上に、各 YAML で置いてください（例: `y: 0.06`, `h: 0.5`）。
 
 ## 開発 / Development
 

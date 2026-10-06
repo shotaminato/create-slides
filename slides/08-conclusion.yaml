@@ -1,0 +1,81 @@
+template: conclusion
+notes: まとめ。オープン・モジュール・RV64GC が汎用の出発点。
+
+elements:
+  - type: text
+    text: まとめ
+    x: 0.7
+    y: 0.85
+    w: 11.8
+    h: 0.7
+    fontSize: 32
+    bold: true
+    color: text
+
+  - type: shape
+    shape: roundRect
+    x: 0.7
+    y: 1.7
+    w: 0.55
+    h: 0.1
+    fill: accent
+    rectRadius: 0.5
+
+  - type: shape
+    shape: roundRect
+    x: 0.7
+    y: 2.1
+    w: 11.9
+    h: 0.85
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.08
+    text: "オープン標準。仕様にロイヤリティは不要です。"
+    fontSize: 16
+    color: text
+    align: left
+
+  - type: shape
+    shape: roundRect
+    x: 0.7
+    y: 3.1
+    w: 11.9
+    h: 0.85
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.08
+    text: "ベース ISA を小さく凍結し、機能は M / A / F / D / C / V などの拡張で足します。"
+    fontSize: 16
+    color: text
+    align: left
+
+  - type: shape
+    shape: roundRect
+    x: 0.7
+    y: 4.1
+    w: 11.9
+    h: 0.85
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.08
+    text: "汎用の出発点は RV64GC。特権は M（必須）に加え、OS 向けに S と U を載せます。"
+    fontSize: 16
+    color: text
+    align: left
+
+  - type: text
+    text: ご清聴ありがとうございました
+    x: 0.7
+    y: 5.25
+    w: 11.9
+    h: 0.7
+    fontSize: 22
+    bold: true
+    color: accent
+    valign: middle

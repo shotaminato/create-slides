@@ -1,0 +1,116 @@
+template: content
+notes: RISC-V は命令セットのオープン標準。実装のライセンスとは独立。
+
+elements:
+  - type: text
+    text: RISC-V とは
+    x: 0.45
+    y: 0.06
+    w: 12.4
+    h: 0.5
+    fontSize: 22
+    bold: true
+    color: text
+    valign: middle
+
+  - type: text
+    text: "命令セットアーキテクチャ（ISA）のオープン標準です。2010 年に UC Berkeley で始まり、仕様は RISC-V International が維持しています。"
+    x: 0.5
+    y: 0.9
+    w: 12.3
+    h: 0.7
+    fontSize: 16
+    color: text
+
+  - type: shape
+    shape: roundRect
+    x: 0.5
+    y: 1.8
+    w: 3.9
+    h: 4.95
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.12
+
+  - type: text
+    text: "オープン"
+    x: 0.7
+    y: 2.0
+    w: 3.5
+    h: 0.4
+    fontSize: 16
+    bold: true
+    color: accent
+
+  - type: text
+    text: "仕様にライセンス料はかかりません。\n実装はオープンソースでも、プロプライエタリでも構いません。"
+    x: 0.7
+    y: 2.5
+    w: 3.5
+    h: 3.9
+    fontSize: 14
+    color: text
+
+  - type: shape
+    shape: roundRect
+    x: 4.7
+    y: 1.8
+    w: 3.9
+    h: 4.95
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.12
+
+  - type: text
+    text: "RISC の基本"
+    x: 4.9
+    y: 2.0
+    w: 3.5
+    h: 0.4
+    fontSize: 16
+    bold: true
+    color: accent
+
+  - type: text
+    text: "ロードストア型。演算はレジスタ間で行い、メモリは load / store 経由です。エンディアンはリトルエンディアンです。"
+    x: 4.9
+    y: 2.5
+    w: 3.5
+    h: 3.9
+    fontSize: 14
+    color: text
+
+  - type: shape
+    shape: roundRect
+    x: 8.9
+    y: 1.8
+    w: 3.9
+    h: 4.95
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.12
+
+  - type: text
+    text: "モジュール"
+    x: 9.1
+    y: 2.0
+    w: 3.5
+    h: 0.4
+    fontSize: 16
+    bold: true
+    color: accent
+
+  - type: text
+    text: "整数ベース ISA を凍結し、乗除・浮動小数点・圧縮・ベクトルなどは標準拡張として足します。"
+    x: 9.1
+    y: 2.5
+    w: 3.5
+    h: 3.9
+    fontSize: 14
+    color: text

@@ -90,6 +90,7 @@ function addText(slideObj: PptxSlide, el: TextElement, slide: ResolvedSlide): vo
     underline: el.underline,
     margin: el.margin ?? 0,
     fill,
+    lang: el.lang ?? slide.lang,
   });
 }
 
@@ -171,6 +172,7 @@ function addShape(slideObj: PptxSlide, el: ShapeElement, slide: ResolvedSlide): 
       italic: el.italic,
       underline: el.underline,
       margin: el.margin ?? 4,
+      lang: el.lang ?? slide.lang,
     });
     return;
   }

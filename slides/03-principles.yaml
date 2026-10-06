@@ -1,0 +1,82 @@
+template: content
+notes: 設計方針。遅延スロットや条件コードは持たない。ベースは凍結。
+
+elements:
+  - type: text
+    text: 設計思想
+    x: 0.45
+    y: 0.06
+    w: 12.4
+    h: 0.5
+    fontSize: 22
+    bold: true
+    color: text
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 0.5
+    y: 0.95
+    w: 6.0
+    h: 2.8
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "シンプル\n遅延スロットや条件コードを ISA に載せない。直交した命令と少ない形式。"
+    fontSize: 15
+    color: text
+    align: left
+    valign: top
+
+  - type: shape
+    shape: roundRect
+    x: 6.8
+    y: 0.95
+    w: 6.0
+    h: 2.8
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "モジュール\n必要な拡張だけを実装する。組み込みは小さく、応用は RV64GC などから広げられる。"
+    fontSize: 15
+    color: text
+    align: left
+    valign: top
+
+  - type: shape
+    shape: roundRect
+    x: 0.5
+    y: 4.0
+    w: 6.0
+    h: 2.8
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "安定\n批准済みのベース ISA は凍結する。既存のソフトウェアを壊す変更を入れない。"
+    fontSize: 15
+    color: text
+    align: left
+    valign: top
+
+  - type: shape
+    shape: roundRect
+    x: 6.8
+    y: 4.0
+    w: 6.0
+    h: 2.8
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    rectRadius: 0.1
+    text: "実装の自由\nパイプラインやキャッシュの形は ISA が縛りすぎない。ASIC でも FPGA でも同じ命令セット。"
+    fontSize: 15
+    color: text
+    align: left
+    valign: top

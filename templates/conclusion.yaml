@@ -1,4 +1,4 @@
-# Shared visual language (also used when a slide sets template: default)
+# Conclusion / summary chrome — open layout, soft footer, light accent mark
 title: RISC-V 入門
 author: create-slides
 subject: オープンな命令セットアーキテクチャ
@@ -29,14 +29,28 @@ colors:
 
 elements:
   - type: shape
+    shape: ellipse
+    x: 11.7
+    y: -0.85
+    w: 2.6
+    h: 2.6
+    fill: header
+  - type: shape
     shape: rect
     x: 0
     y: 7.18
     w: 13.333
     h: 0.32
     fill: footer
+  - type: shape
+    shape: rect
+    x: 0
+    y: 7.12
+    w: 13.333
+    h: 0.06
+    fill: accent
   - type: text
-    text: RISC-V 入門  ·  オープン ISA
+    text: RISC-V 入門  ·  まとめ
     x: 0.45
     y: 7.18
     w: 12.4

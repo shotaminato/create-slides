@@ -1,0 +1,216 @@
+template: content
+notes: 32 ビット命令の 6 形式。即値は符号拡張。C 拡張は 16 ビット符号化。
+
+elements:
+  - type: text
+    text: 命令フォーマット
+    x: 0.45
+    y: 0.06
+    w: 12.4
+    h: 0.5
+    fontSize: 22
+    bold: true
+    color: text
+    valign: middle
+
+  - type: text
+    text: "ベース ISA の命令は 32 ビットで、R / I / S / B / U / J の 6 形式です。即値は符号拡張します。"
+    x: 0.5
+    y: 0.82
+    w: 12.3
+    h: 0.45
+    fontSize: 15
+    color: text
+
+  - type: shape
+    shape: rect
+    x: 0.5
+    y: 1.4
+    w: 2.0
+    h: 0.7
+    fill: accent
+    text: opcode
+    fontSize: 13
+    bold: true
+    color: "FFFFFF"
+
+  - type: shape
+    shape: rect
+    x: 2.6
+    y: 1.4
+    w: 1.7
+    h: 0.7
+    fill: "3D8BD8"
+    text: rd
+    fontSize: 13
+    bold: true
+    color: "FFFFFF"
+
+  - type: shape
+    shape: rect
+    x: 4.4
+    y: 1.4
+    w: 1.7
+    h: 0.7
+    fill: "5AA0E0"
+    text: funct3
+    fontSize: 13
+    bold: true
+    color: "FFFFFF"
+
+  - type: shape
+    shape: rect
+    x: 6.2
+    y: 1.4
+    w: 1.7
+    h: 0.7
+    fill: "3D8BD8"
+    text: rs1
+    fontSize: 13
+    bold: true
+    color: "FFFFFF"
+
+  - type: shape
+    shape: rect
+    x: 8.0
+    y: 1.4
+    w: 1.7
+    h: 0.7
+    fill: "3D8BD8"
+    text: rs2
+    fontSize: 13
+    bold: true
+    color: "FFFFFF"
+
+  - type: shape
+    shape: rect
+    x: 9.8
+    y: 1.4
+    w: 2.95
+    h: 0.7
+    fill: accent4
+    text: funct7 / imm
+    fontSize: 13
+    bold: true
+    color: "FFFFFF"
+
+  - type: shape
+    shape: triangle
+    x: 11.55
+    y: 2.25
+    w: 0.7
+    h: 0.45
+    fill: accent3
+
+  - type: text
+    text: 即値は形式ごとにビット配置が違う
+    x: 6.2
+    y: 2.22
+    w: 5.2
+    h: 0.45
+    fontSize: 13
+    color: accent3
+    align: right
+    valign: middle
+
+  - type: shape
+    shape: roundRect
+    x: 0.5
+    y: 2.85
+    w: 3.9
+    h: 1.85
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.1
+    text: "R  レジスタ演算\nadd, sub, and, or, xor"
+    fontSize: 14
+    color: text
+    align: left
+    valign: top
+
+  - type: shape
+    shape: roundRect
+    x: 4.7
+    y: 2.85
+    w: 3.9
+    h: 1.85
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.1
+    text: "I  即値・ロード\naddi, lw, jalr, シフト"
+    fontSize: 14
+    color: text
+    align: left
+    valign: top
+
+  - type: shape
+    shape: roundRect
+    x: 8.9
+    y: 2.85
+    w: 3.9
+    h: 1.85
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.1
+    text: "S  ストア\nsw, sh, sb"
+    fontSize: 14
+    color: text
+    align: left
+    valign: top
+
+  - type: shape
+    shape: roundRect
+    x: 0.5
+    y: 4.9
+    w: 3.9
+    h: 1.85
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.1
+    text: "B  条件分岐\nbeq, bne, blt, bge"
+    fontSize: 14
+    color: text
+    align: left
+    valign: top
+
+  - type: shape
+    shape: roundRect
+    x: 4.7
+    y: 4.9
+    w: 3.9
+    h: 1.85
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.1
+    text: "U  上位即値\nlui, auipc"
+    fontSize: 14
+    color: text
+    align: left
+    valign: top
+
+  - type: shape
+    shape: roundRect
+    x: 8.9
+    y: 4.9
+    w: 3.9
+    h: 1.85
+    fill: card
+    line:
+      color: line
+      width: 1
+    rectRadius: 0.1
+    text: "J  ジャンプ\njal"
+    fontSize: 14
+    color: text
+    align: left
+    valign: top

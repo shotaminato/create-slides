@@ -108,6 +108,7 @@ function mergeSlide(template: TemplateConfig, slide: SlideFileConfig, source: st
     title: slide.title ?? template.title,
     author: slide.author ?? template.author,
     subject: slide.subject ?? template.subject,
+    lang: slide.lang ?? template.lang,
     notes: slide.notes,
     elements: mergeElements(template.elements, slide.elements),
   };

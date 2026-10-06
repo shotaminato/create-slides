@@ -1,0 +1,120 @@
+template: content
+notes: RV32I / RV64I が主。x0 はゼロ。整数レジスタは 32 本（RV32E は 16 本）。
+
+elements:
+  - type: text
+    text: ベース整数 ISA
+    x: 0.45
+    y: 0.06
+    w: 12.4
+    h: 0.5
+    fontSize: 22
+    bold: true
+    color: text
+    valign: middle
+
+  - type: text
+    text: "整数ベースは RV32I / RV64I / RV128I。組み込み向けにレジスタ 16 本の RV32E もあります。命令は基本 32 ビットです。"
+    x: 0.5
+    y: 0.85
+    w: 12.3
+    h: 0.55
+    fontSize: 15
+    color: text
+
+  - type: shape
+    shape: rect
+    x: 0.5
+    y: 1.55
+    w: 2.9
+    h: 1.15
+    fill: accent
+    text: RV32I
+    fontSize: 18
+    bold: true
+    color: "FFFFFF"
+
+  - type: shape
+    shape: rect
+    x: 3.6
+    y: 1.55
+    w: 2.9
+    h: 1.15
+    fill: accent2
+    text: RV64I
+    fontSize: 18
+    bold: true
+    color: "FFFFFF"
+
+  - type: shape
+    shape: rect
+    x: 6.7
+    y: 1.55
+    w: 2.9
+    h: 1.15
+    fill: accent3
+    text: RV128I
+    fontSize: 18
+    bold: true
+    color: "FFFFFF"
+
+  - type: shape
+    shape: roundRect
+    x: 9.8
+    y: 1.55
+    w: 2.95
+    h: 1.15
+    fill: accent4
+    rectRadius: 0.15
+    text: RV32E（16本）
+    fontSize: 16
+    bold: true
+    color: "FFFFFF"
+
+  - type: shape
+    shape: ellipse
+    x: 0.5
+    y: 3.05
+    w: 2.2
+    h: 2.2
+    fill: header
+    line:
+      color: accent
+      width: 1.5
+    text: "x0\nzero"
+    fontSize: 16
+    bold: true
+    color: accent
+
+  - type: text
+    text: "常に 0。書き込みは捨てられます。"
+    x: 0.5
+    y: 5.35
+    w: 2.3
+    h: 1.5
+    fontSize: 13
+    color: muted
+
+  - type: shape
+    shape: rect
+    x: 3.1
+    y: 3.2
+    w: 9.65
+    h: 1.9
+    fill: card
+    line:
+      color: line
+      width: 1.1
+    text: "x1 … x31   整数汎用レジスタ（32 ビットまたは 64 ビット）"
+    fontSize: 16
+    bold: true
+    color: text
+
+  - type: text
+    text: "ABI 名の例: ra, sp, gp, tp, t0–t6, s0–s11, a0–a7。浮動小数点レジスタは F / D 拡張で別途追加します。"
+    x: 3.1
+    y: 5.25
+    w: 9.65
+    h: 1.55
+    fontSize: 14
+    color: muted

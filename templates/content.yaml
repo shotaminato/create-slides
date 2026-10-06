@@ -1,4 +1,4 @@
-# Shared visual language (also used when a slide sets template: default)
+# Content slide chrome — header band, accent rule, footer
 title: RISC-V 入門
 author: create-slides
 subject: オープンな命令セットアーキテクチャ
@@ -28,6 +28,20 @@ colors:
   line: "C5CDD6"
 
 elements:
+  - type: shape
+    shape: rect
+    x: 0
+    y: 0
+    w: 13.333
+    h: 0.62
+    fill: header
+  - type: shape
+    shape: rect
+    x: 0
+    y: 0.62
+    w: 13.333
+    h: 0.055
+    fill: accent
   - type: shape
     shape: rect
     x: 0
