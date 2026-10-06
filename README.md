@@ -59,6 +59,8 @@ create-slides/
     02-shapes.yaml
   assets/
     logo.png
+  examples/
+    sample-deck.pptx
   src/
     cli.ts
     schema.ts
@@ -192,7 +194,7 @@ npm install
 npm run build-slides -- --slides slides --template templates/default.yaml --out dist/deck.pptx
 ```
 
-成功すると `dist/deck.pptx` ができます（このパスは `.gitignore` 対象です）。
+成功すると `dist/deck.pptx` ができます（`dist/` は `.gitignore` 対象です）。同じコマンドで生成したサンプルを `examples/sample-deck.pptx` に同梱しています。
 
 ## 開発 / Development
 

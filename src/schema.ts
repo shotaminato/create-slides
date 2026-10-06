@@ -1,10 +1,20 @@
 import { z } from "zod";
 
 /** Inches (number) or pptxgenjs percent strings such as "50%". */
-const coord = z.union([
-  z.number(),
-  z.string().regex(/^-?\d+(\.\d+)?%?$/, "Expected inches (number) or a percent string like 50%"),
-]);
+const coord = z.union(
+  [
+    z.number(),
+    z.string().regex(/^-?\d+(\.\d+)?%?$/, "Expected inches (number) or a percent string like 50%"),
+  ],
+  {
+    errorMap: (issue, ctx) => {
+      if (issue.code === "invalid_union") {
+        return { message: "Required: inches (number) or a percent string like 50%" };
+      }
+      return { message: ctx.defaultError };
+    },
+  },
+);
 
 const hexOrName = z.string().min(1);
 
