@@ -94,15 +94,15 @@ create-slides/
 各テンプレートで定義できる主な項目:
 
 - `size.width` / `size.height` — インチ。未指定時はワイドスクリーン **13.333 × 7.5**
-- `background` — スライド背景色
+- `background` — スライドマスターの背景色
 - `fonts.default` / `fonts.heading` — 既定は `Yu Gothic UI`
 - `lang` — テキストの言語タグ（サンプルは `ja-JP`）
 - `colors` — 名前付きパレット。要素の `color` / `fill` から参照
-- `title` / `author` / `subject` — プレゼンテーションのメタデータ
-- `elements` — そのテンプレートを使うスライドに先に描画される共有要素
-- フッター右のページ番号 — テキストに `{{page}} / {{pages}}` を書くと、描画時に「現在ページ / 総ページ」（1 始まり）へ置換されます。別名: `{{currentPage}}` / `{{totalPages}}`
+- `title` / `author` / `subject` — プレゼンテーションのメタデータ（スライド見出しではない）
+- `elements` — **スライドマスター**（pptxgenjs `defineSlideMaster`）に載せる共通クローム。ヘッダー／フッター帯、アクセント、静的なフッターラベルなど。各スライドへは複製しません
+- `pageNumber` — フッター右の `current / total`。pptxgenjs の `slideNumber` は現在ページのフィールドだけなので、描画時に差し込みます。`text` の既定は `{{page}} / {{pages}}`（1 始まり）。別名: `{{currentPage}}` / `{{totalPages}}`。`align` の既定は `right`
 
-サンプルの title / content / conclusion / default は、フッター左にデッキ名、右寄せで `1 / 8` 形式のページ番号を置きます。
+サンプルの title / content / conclusion / default は、マスターに背景とフッター帯、フッター左にデッキ名を置き、各スライドの右寄せで `1 / 8` 形式のページ番号を描画します。**見出しテキストはマスターに焼き込みません**（各スライド YAML の `elements`）。
 
 ### スライド YAML
 
@@ -123,10 +123,18 @@ elements:
 - `template: default` は CLI の `--template` を使います
 - 名前だけ (`content`) なら `templates/content.yaml` を探します
 - パス (`templates/foo.yaml`) はプロジェクトルートからの相対です
-- **スライド側の値がテンプレートを上書き**します（`size` / `background` / `fonts` / `colors`）
-- `elements` は **テンプレート要素 + スライド要素**（テンプレートが下、スライドが上）
+- **スライド側の値がテンプレートを上書き**します（`size` / `background` / `fonts` / `colors`）。`background` をスライドで指定したときだけ、マスター背景をスライド側で上書きします
+- テンプレートの `elements` はマスターへ。スライドの `elements` はそのスライドだけ（タイトル・本文）。`pageNumber` は描画時に各スライドへ載せます
 
 色は `#0B6BCB` / `0B6BCB` / パレット名（`accent`）のいずれでも指定できます。座標 `x,y,w,h` の単位はインチです（pptxgenjs のパーセント文字列 `"50%"` も可）。
+
+### スライドマスター / Slide masters
+
+pptxgenjs の `defineLayout`（サイズ）と `defineSlideMaster`（クローム）を使います。テンプレートごとに 1 つのマスターを作り、`addSlide({ masterName })` で参照します。ネイティブのマスターオブジェクトは `rect` / `line` / `text` / `image` です。`ellipse` や `roundRect` などは `{ text, options.shape }` 経由でマスターに載せます。
+
+PowerPoint のスライド番号フィールドは現在ページだけなので、`n / total` はマスターではなく描画時のテキストです。
+
+Title text stays in slide YAML and is not fixed on the master.
 
 ### `type: text`
 

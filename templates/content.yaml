@@ -1,4 +1,5 @@
-# Content slide chrome — header band, accent rule, footer
+# Content slide chrome — header band, accent rule, footer on the slide master.
+# Headings stay in each slide YAML (not baked into the master).
 title: RISC-V 入門
 author: create-slides
 subject: オープンな命令セットアーキテクチャ
@@ -58,13 +59,14 @@ elements:
     fontSize: 14
     color: muted
     valign: middle
-  - type: text
-    text: "{{page}} / {{pages}}"
-    x: 10.8
-    y: 7.12
-    w: 2.1
-    h: 0.38
-    fontSize: 14
-    color: muted
-    align: right
-    valign: middle
+
+pageNumber:
+  x: 10.8
+  y: 7.12
+  w: 2.1
+  h: 0.38
+  fontSize: 14
+  color: muted
+  align: right
+  valign: middle
+  text: "{{page}} / {{pages}}"

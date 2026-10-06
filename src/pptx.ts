@@ -30,6 +30,13 @@ export interface PptxSlide {
   addShape(shapeName: string, opts?: Record<string, unknown>): void;
 }
 
+/** pptxgenjs master object: `{ rect | line | text | image | placeholder | chart }`. */
+export type MasterObject =
+  | { rect: Record<string, unknown> }
+  | { line: Record<string, unknown> }
+  | { text: { text: string; options: Record<string, unknown> } }
+  | { image: Record<string, unknown> };
+
 export interface PptxPres {
   ShapeType: Record<string, string>;
   layout: string;
@@ -37,7 +44,12 @@ export interface PptxPres {
   author: string;
   subject: string;
   defineLayout(layout: { name: string; width: number; height: number }): void;
-  addSlide(): PptxSlide;
+  defineSlideMaster(props: {
+    title: string;
+    background?: { color?: string };
+    objects?: MasterObject[];
+  }): void;
+  addSlide(options?: { masterName?: string }): PptxSlide;
   writeFile(props: { fileName: string }): Promise<string>;
 }
 

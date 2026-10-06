@@ -98,11 +98,15 @@ async function main(): Promise<void> {
     title: deck.title,
     author: deck.author,
     subject: deck.subject,
+    masters: deck.masters,
   });
 
   console.log(`Wrote ${deck.slides.length} slide(s) → ${written}`);
+  if (deck.masters.length > 0) {
+    console.log(`  masters: ${deck.masters.map((m) => m.name).join(", ")}`);
+  }
   for (const slide of deck.slides) {
-    console.log(`  - ${slide.source} (${slide.elements.length} elements)`);
+    console.log(`  - ${slide.source} [${slide.masterName}] (${slide.elements.length} elements)`);
   }
 }
 

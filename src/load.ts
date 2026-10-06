@@ -4,13 +4,16 @@ import yaml from "js-yaml";
 import { ZodError } from "zod";
 import {
   DEFAULT_SIZE,
+  elementHasPagePlaceholder,
   formatZodError,
+  pageNumberToElement,
   slideFileSchema,
   SlideConfigError,
   templateSchema,
   type ResolvedSlide,
   type SlideElement,
   type SlideFileConfig,
+  type SlideMasterDef,
   type TemplateConfig,
 } from "./schema.js";
 
@@ -89,20 +92,58 @@ export function resolveTemplatePath(
   return path.resolve(root, "templates", `${value}.yaml`);
 }
 
-function mergeElements(templateEls: SlideElement[] | undefined, slideEls: SlideElement[] | undefined): SlideElement[] {
-  return [...(templateEls ?? []), ...(slideEls ?? [])];
+function allocateMasterName(used: Set<string>, templatePath: string): string {
+  const base = path.basename(templatePath, path.extname(templatePath)) || "master";
+  if (!used.has(base)) {
+    used.add(base);
+    return base;
+  }
+  let n = 2;
+  while (used.has(`${base}-${n}`)) n += 1;
+  const name = `${base}-${n}`;
+  used.add(name);
+  return name;
 }
 
-function mergeSlide(template: TemplateConfig, slide: SlideFileConfig, source: string): ResolvedSlide {
+function splitTemplateChrome(template: TemplateConfig): {
+  masterElements: SlideElement[];
+  overlayElements: SlideElement[];
+} {
+  const masterElements: SlideElement[] = [];
+  const overlayElements: SlideElement[] = [];
+  for (const el of template.elements ?? []) {
+    if (elementHasPagePlaceholder(el)) overlayElements.push(el);
+    else masterElements.push(el);
+  }
+  const pageNumber = template.pageNumber;
+  if (pageNumber) overlayElements.push(pageNumberToElement(pageNumber));
+  return { masterElements, overlayElements };
+}
+
+function mergeSlide(
+  template: TemplateConfig,
+  slide: SlideFileConfig,
+  source: string,
+  masterName: string,
+): ResolvedSlide {
   const size = {
     width: slide.size?.width ?? template.size?.width ?? DEFAULT_SIZE.width,
     height: slide.size?.height ?? template.size?.height ?? DEFAULT_SIZE.height,
   };
 
+  const { overlayElements } = splitTemplateChrome(template);
+  const pageNumber = slide.pageNumber
+    ? pageNumberToElement(slide.pageNumber)
+    : undefined;
+  const overlay = pageNumber
+    ? overlayElements.filter((el) => !elementHasPagePlaceholder(el)).concat(pageNumber)
+    : overlayElements;
+
   return {
     source,
+    masterName,
     size,
-    background: slide.background ?? template.background,
+    backgroundOverride: slide.background,
     fonts: { ...template.fonts, ...slide.fonts },
     colors: { ...template.colors, ...slide.colors },
     title: slide.title ?? template.title,
@@ -110,7 +151,7 @@ function mergeSlide(template: TemplateConfig, slide: SlideFileConfig, source: st
     subject: slide.subject ?? template.subject,
     lang: slide.lang ?? template.lang,
     notes: slide.notes,
-    elements: mergeElements(template.elements, slide.elements),
+    elements: [...overlay, ...(slide.elements ?? [])],
   };
 }
 
@@ -135,38 +176,59 @@ export function listSlideFiles(slidesDir: string): string[] {
   return files.map((name) => path.join(slidesDir, name));
 }
 
+interface CachedTemplate {
+  config: TemplateConfig;
+  master: SlideMasterDef;
+}
+
 export function loadDeck(options: LoadOptions): {
   slides: ResolvedSlide[];
+  masters: SlideMasterDef[];
   title?: string;
   author?: string;
   subject?: string;
 } {
   const slidesDir = path.resolve(options.root, options.slidesDir);
   const slidePaths = listSlideFiles(slidesDir);
-  const templateCache = new Map<string, TemplateConfig>();
+  const templateCache = new Map<string, CachedTemplate>();
+  const usedMasterNames = new Set<string>();
+  const masters: SlideMasterDef[] = [];
 
-  const loadTemplate = (filePath: string): TemplateConfig => {
+  const loadTemplate = (filePath: string): CachedTemplate => {
     const cached = templateCache.get(filePath);
     if (cached) return cached;
     if (!fs.existsSync(filePath)) {
       throw new SlideConfigError(`Template file not found: ${filePath}`);
     }
-    const parsed = parseYamlFile(filePath, templateSchema);
-    templateCache.set(filePath, parsed);
-    return parsed;
+    const config = parseYamlFile(filePath, templateSchema);
+    const { masterElements } = splitTemplateChrome(config);
+    const master: SlideMasterDef = {
+      name: allocateMasterName(usedMasterNames, filePath),
+      source: path.relative(options.root, filePath) || filePath,
+      background: config.background,
+      fonts: { ...config.fonts },
+      colors: { ...config.colors },
+      lang: config.lang,
+      elements: masterElements,
+    };
+    const entry = { config, master };
+    templateCache.set(filePath, entry);
+    masters.push(master);
+    return entry;
   };
 
   const slides = slidePaths.map((slidePath) => {
     const slide = parseYamlFile(slidePath, slideFileSchema);
     const templatePath = resolveTemplatePath(slide.template, options.defaultTemplate, options.root);
-    const template = loadTemplate(templatePath);
+    const loaded = loadTemplate(templatePath);
     const relative = path.relative(options.root, slidePath) || slidePath;
-    return mergeSlide(template, slide, relative);
+    return mergeSlide(loaded.config, slide, relative, loaded.master.name);
   });
 
   const first = slides[0];
   return {
     slides,
+    masters,
     title: first?.title,
     author: first?.author,
     subject: first?.subject,

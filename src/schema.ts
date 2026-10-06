@@ -148,6 +148,13 @@ export const sizeSchema = z.object({
   height: z.number().positive(),
 });
 
+/**
+ * Footer page number overlay. Injected per slide at render time because
+ * pptxgenjs `slideNumber` is a PowerPoint current-page field only (not `n / total`).
+ * Default text is `{{page}} / {{pages}}`.
+ */
+export const pageNumberSchema = box.merge(textStyle);
+
 export const themeFieldsSchema = z.object({
   size: sizeSchema.optional(),
   background: hexOrName.optional(),
@@ -157,7 +164,9 @@ export const themeFieldsSchema = z.object({
   author: z.string().optional(),
   subject: z.string().optional(),
   lang: z.string().optional(),
+  /** Static chrome drawn on the PowerPoint slide master (not copied onto each slide). */
   elements: z.array(elementSchema).optional(),
+  pageNumber: pageNumberSchema.optional(),
 });
 
 export const templateSchema = themeFieldsSchema;
@@ -176,11 +185,25 @@ export type ShapeElement = z.infer<typeof shapeElementSchema>;
 export type SlideElement = z.infer<typeof elementSchema>;
 export type TemplateConfig = z.infer<typeof templateSchema>;
 export type SlideFileConfig = z.infer<typeof slideFileSchema>;
+export type PageNumberConfig = z.infer<typeof pageNumberSchema>;
+
+export interface SlideMasterDef {
+  /** pptxgenjs `defineSlideMaster` title / `addSlide({ masterName })`. */
+  name: string;
+  source: string;
+  background?: string;
+  fonts: { default?: string; heading?: string };
+  colors: Record<string, string>;
+  lang?: string;
+  elements: SlideElement[];
+}
 
 export interface ResolvedSlide {
   source: string;
+  masterName: string;
   size: { width: number; height: number };
-  background?: string;
+  /** Slide-YAML background override. Master background is used when omitted. */
+  backgroundOverride?: string;
   fonts: { default?: string; heading?: string };
   colors: Record<string, string>;
   title?: string;
@@ -189,6 +212,37 @@ export interface ResolvedSlide {
   lang?: string;
   notes?: string;
   elements: SlideElement[];
+}
+
+/** Matches `{{page}}` / `{{pages}}` / `{{currentPage}}` / `{{totalPages}}`. */
+export const PAGE_PLACEHOLDER_RE = /\{\{(?:page|pages|currentPage|totalPages)\}\}/;
+
+export function elementHasPagePlaceholder(el: SlideElement): boolean {
+  if (el.type === "text" || el.type === "shape") {
+    return PAGE_PLACEHOLDER_RE.test(el.text ?? "");
+  }
+  return false;
+}
+
+export function pageNumberToElement(cfg: PageNumberConfig): TextElement {
+  return {
+    type: "text",
+    text: cfg.text && cfg.text.length > 0 ? cfg.text : "{{page}} / {{pages}}",
+    x: cfg.x,
+    y: cfg.y,
+    w: cfg.w,
+    h: cfg.h,
+    fontFace: cfg.fontFace,
+    fontSize: cfg.fontSize,
+    color: cfg.color,
+    align: cfg.align ?? "right",
+    valign: cfg.valign ?? "middle",
+    bold: cfg.bold,
+    italic: cfg.italic,
+    underline: cfg.underline,
+    margin: cfg.margin,
+    lang: cfg.lang,
+  };
 }
 
 export const DEFAULT_SIZE = { width: 13.333, height: 7.5 } as const;
